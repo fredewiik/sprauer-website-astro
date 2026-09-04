@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const penalItems = [
+  { title: "Plainte classée sans suite", img: "pexels-alex-qian-1180283-2325886.webp" },
+  { title: "Mise en examen", img: "pexels-karatara-278139-931317.webp" },
+  { title: "Comparution immédiate", img: "pexels-ekaterina-bolovtsova-6077123.webp" },
+  { title: "Comparution sur reconnaissance préalable de culpabilité", img: "pexels-fred-18978472.webp" },
+  { title: "Garde à vue", img: "pexels-francois-hanscotte-3537774-5292296.webp" },
+  { title: "Effacement TAJ & B2", img: "pexels-scarlett-boute-144979497-11679719.webp" },
+  { title: "Détention provisoire", img: "pexels-tattoodonor-tattoodonor-1160289080-25942440.webp" },
+];
+
+const penalAffairesItems = [
+  { title: "Compliance", img: "pexels-claudio-mota-105200226-9999874.webp" },
+  { title: "Pratiques commerciales trompeuses", img: "pexels-tom-pursey-3025008-4693103.webp" },
+  { title: "Escroquerie et blanchiment", img: "pexels-lucaspcarlini-15097854.webp" },
+  { title: "Responsabilité pénale et ordinale des experts comptables", img: "pexels-lindseygarrett-13987195.webp" },
+];
+---
+
+<BaseLayout 
+  title="Compétences - Sprauer Avocats Paris"
+  description="Découvrez l'ensemble des expertises du cabinet Sprauer Avocats : Droit pénal, droit pénal des affaires et droit des affaires à Paris."
+  canonical="https://sprauer.fr/competences/"
+>
+
+  <main class="droipbase-site-main">
+    <!-- Hero Section -->
+    <section class="dp9g3nag" id="hero">
+      <div class="dps27pl1">
+        <div class="dpok4d0v">
+          <div class="dp23tjsi">
+            <h1 class="dphlts4a">Toutes nos <strong class="dp61buro">expertises</strong></h1>
+            <div class="dp8vdxsp">
+              <p class="dphfrcu5">
+                Spécialisé en droit pénal, droit pénal des affaires et droit des affaires, le cabinet met son expertise au service de vos enjeux juridiques les plus sensibles.<br><br>
+                Nous vous accompagnons avec rigueur, confidentialité et efficacité dans chaque domaine d’intervention présenté ici.
+              </p>
+            </div>
+          </div>
+          <div class="dpa197ls">
+            <img class="dpvp4ujd" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-matreding-30241270.webp" alt="Sprauer Avocats - Expertise" loading="eager" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Droit Pénal -->
+    <section class="dpx6uwfs" id="section-droit-penal">
+      <div class="dpv5q4rn">
+        <h2 class="dp4xfj44">Droit pénal</h2>
+        <div class="dp1sgzr8">
+          {penalItems.map((item) => (
+            <div class="card-item">
+              <img src={`https://front.sprauer.fr/wp-content/uploads/2025/08/${item.img}`} alt={item.title} loading="lazy" />
+              <div>
+                <h3>{item.title}</h3>
+                <a class="btn-more" href="#"><span>En savoir plus</span></a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Droit Pénal des Affaires -->
+    <section class="dpob98f7" id="section-droit-penal-affaires">
+      <div class="dpqmqc59">
+        <h2 class="dpnjqv63">Droit pénal des affaires</h2>
+        <div class="dpa09kih">
+          {penalAffairesItems.map((item) => (
+            <div class="card-item">
+              <img src={`https://front.sprauer.fr/wp-content/uploads/2025/08/${item.img}`} alt={item.title} loading="lazy" />
+              <div>
+                <h3>{item.title}</h3>
+                <a class="btn-more" href="#"><span>En savoir plus</span></a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .dp9g3nag, .dpx6uwfs, .dpob98f7 { padding: 100px 0; }
+  .dp9g3nag { background-color: var(--dp5u7bvo); margin-top: 23px; }
+  .dpx6uwfs { background-color: var(--dpc6dwjj); }
+  .dpob98f7 { background-color: var(--dprm9y3j); }
+  .dps27pl1, .dpv5q4rn, .dpqmqc59 { max-width: 1216px; margin: 0 auto; padding: 0 24px; }
+  .dpok4d0v { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .dphlts4a { font-size: 42px; font-weight: 600; text-transform: uppercase; color: var(--dpc6dwjj); }
+  .dp61buro { color: var(--dpntalel); }
+  .dphfrcu5 { font-size: 18px; line-height: 1.5em; color: #fff; }
+  
+  .dp1sgzr8, .dpa09kih { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .dp4xfj44, .dpnjqv63 { font-size: 32px; margin-bottom: 40px; }
+  .dp4xfj44 { color: var(--dp5u7bvo); }
+  .dpnjqv63 { color: #fff; }
+
+  .card-item { display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.05); border-radius: 8px; overflow: hidden; }
+  .card-item img { width: 100%; height: 200px; object-fit: cover; }
+  .card-item div { padding: 15px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; }
+  
+  .btn-more { display: inline-block; border-radius: 50px; border: 2px solid currentColor; padding: 5px 15px; text-decoration: none; margin-top: 10px; font-size: 14px; text-align: center; }
+
+  @media (max-width: 991px) {
+    .dpok4d0v, .dp1sgzr8, .dpa09kih { grid-template-columns: 1fr; }
+  }
+</style>

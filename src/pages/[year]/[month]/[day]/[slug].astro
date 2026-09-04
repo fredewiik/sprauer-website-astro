@@ -1,0 +1,293 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  let posts: any[] = [];
+  
+  try {
+    const res = await fetch('https://front.sprauer.fr/wp-json/wp/v2/posts?_embed&per_page=100');
+    if (res.ok) posts = await res.json();
+  } catch (error) {
+    console.error("Erreur récupération articles :", error);
+  }
+
+  return posts.map((post) => {
+    const date = new Date(post.date);
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return {
+      params: { year, month, day, slug: post.slug },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+
+// Nettoyage de l'extrait pour la meta-description SEO
+const rawExcerpt = post.excerpt?.rendered || "";
+const cleanExcerpt = rawExcerpt.replace(/<[^>]+>/g, '').trim();
+const pageDescription = cleanExcerpt.length > 160 
+  ? cleanExcerpt.substring(0, 157) + '...' 
+  : cleanExcerpt || "Article juridique rédigé par les avocats du cabinet Sprauer à Paris.";
+
+const pageTitle = `${post.title.rendered.replace(/&#8211;/g, '-')} - Sprauer Avocats Paris`;
+
+// Extraction de l'image à la une
+function getFeaturedImage(post: any) {
+  const fallback = "https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp";
+  const media = post._embedded?.['wp:featuredmedia']?.[0];
+  if (!media) return fallback;
+
+  return (
+    media.media_details?.sizes?.large?.source_url ||
+    media.media_details?.sizes?.full?.source_url ||
+    media.source_url ||
+    fallback
+  );
+}
+
+// Formatage de la date (DD.MM.YYYY)
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+}
+
+const featuredImage = getFeaturedImage(post);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main>
+    <!-- HERO ARTICLE -->
+    <header class="article-hero">
+      <div class="container hero-container">
+        <a href="/parlons-droit/" class="back-link">
+          ← Retour aux articles
+        </a>
+        <div class="article-meta">
+          <span class="article-date">{formatDate(post.date)}</span>
+        </div>
+        <h1 class="article-header-title" set:html={post.title.rendered} />
+      </div>
+    </header>
+
+    <!-- CONTENU ARTICLE -->
+    <article class="article-wrapper">
+      <div class="container container-narrow">
+        {featuredImage && (
+          <div class="featured-image-container">
+            <img 
+              src={featuredImage} 
+              alt={post.title.rendered} 
+              loading="eager"
+              onerror="this.onerror=null;this.src='https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp';"
+            />
+          </div>
+        )}
+
+        <div class="article-body" set:html={post.content.rendered} />
+
+        <div class="article-footer-nav">
+          <a href="/parlons-droit/" class="btn-back">
+            ← Tous les articles
+          </a>
+          <a href="/contact/" class="btn-contact">
+            Prendre rendez-vous
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  /* HERO ARTICLE */
+  .article-hero {
+    padding: 50px 0 50px 0;
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .hero-container {
+    max-width: 900px;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: opacity 0.2s ease;
+  }
+
+  .back-link:hover {
+    opacity: 0.8;
+  }
+
+  .article-meta {
+    margin-bottom: 15px;
+  }
+
+  .article-date {
+    font-size: 0.9rem;
+    color: var(--color-neutral);
+    opacity: 0.9;
+  }
+
+  .article-header-title {
+    font-size: 2.4rem;
+    line-height: 1.25;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  /* LAYOUT ARTICLE */
+  .article-wrapper {
+    padding: 60px 0 90px 0;
+    background-color: #ffffff;
+  }
+
+  .container-narrow {
+    max-width: 820px;
+  }
+
+  .featured-image-container {
+    width: 100%;
+    max-height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 45px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  }
+
+  .featured-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* STYLES DU CONTENU TYPOGRAPHIQUE WORDPRESS */
+  .article-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #2c3e50;
+  }
+
+  .article-body :global(h2) {
+    font-size: 1.75rem;
+    color: var(--color-primary-dark, #0a244a);
+    margin: 40px 0 20px 0;
+    font-weight: 600;
+  }
+
+  .article-body :global(h3) {
+    font-size: 1.4rem;
+    color: var(--color-primary-dark, #0a244a);
+    margin: 30px 0 15px 0;
+    font-weight: 600;
+  }
+
+  .article-body :global(p) {
+    margin-bottom: 24px;
+  }
+
+  .article-body :global(ul), 
+  .article-body :global(ol) {
+    margin: 20px 0 25px 30px;
+  }
+
+  .article-body :global(li) {
+    margin-bottom: 10px;
+  }
+
+  .article-body :global(blockquote) {
+    border-left: 4px solid var(--color-accent);
+    background-color: var(--color-primary-extralight);
+    padding: 20px 25px;
+    margin: 30px 0;
+    font-style: italic;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .article-body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 20px 0;
+  }
+
+  .article-body :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .article-body :global(a:hover) {
+    color: var(--color-accent);
+  }
+
+  /* NAVIGATION BAS DE PAGE */
+  .article-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .btn-back {
+    color: var(--color-primary-dark, #0a244a);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .btn-contact {
+    background-color: var(--color-primary-dark, #0a244a);
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-contact:hover {
+    background-color: var(--color-accent);
+    color: var(--color-primary-dark);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 767px) {
+    .article-hero {
+      padding: 50px 0 35px 0;
+    }
+
+    .article-header-title {
+      font-size: 1.8rem;
+    }
+
+    .featured-image-container {
+      max-height: 280px;
+      margin-bottom: 30px;
+    }
+
+    .article-body {
+      font-size: 1rem;
+    }
+
+    .article-footer-nav {
+      flex-direction: column;
+      gap: 20px;
+      align-items: stretch;
+      text-align: center;
+    }
+  }
+</style>

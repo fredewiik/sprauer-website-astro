@@ -1,0 +1,63 @@
+---
+// src/layouts/BaseLayout.astro
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Accueil - Sprauer Avocats Paris", 
+  description = "Spécialisé en droit des affaires et en droit pénal, notre cabinet vous offre une expertise pointue et un accompagnement personnalisé." 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sprauer.fr');
+---
+
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/webp" href="/cropped-favicon-32x32.webp" />
+  
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:site_name" content="Sprauer Avocats Paris" />
+
+  <!-- Schema.org JSON-LD (SEO Avocat) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Sprauer Avocats Paris",
+      "url": "https://sprauer.fr/",
+      "logo": "https://sprauer.fr/wp-content/uploads/2024/07/logo.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "43, boulevard Haussmann",
+        "addressLocality": "Paris",
+        "postalCode": "75009",
+        "addressCountry": "FR"
+      },
+      "telephone": "01 40 36 74 87"
+    }
+  </script>
+</head>
+<body>
+  <Header />
+  <slot />
+  <Footer />
+</body>
+</html>

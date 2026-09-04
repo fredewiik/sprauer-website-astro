@@ -1,0 +1,159 @@
+---
+// src/components/Header.astro
+
+// Récupération de l'URL courante pour surligner le lien actif
+const pathname = new URL(Astro.request.url).pathname;
+
+const navItems = [
+  { name: 'ACCUEIL', href: '/' },
+  { name: 'COMPETENCES', href: '/competences/' },
+  { name: 'VOS AVOCATS', href: '/vos-avocats/' },
+  { name: 'PARLONS DROIT', href: '/parlons-droit/' },
+  { name: 'CONTACT', href: '/contact/' },
+];
+---
+
+<header class="header">
+  <div class="container header-container">
+    <!-- Logo -->
+    <a href="/" class="logo-link">
+      <img 
+        src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp" 
+        alt="Sprauer Avocats Logo" 
+        width="180" 
+        height="50"
+      />
+    </a>
+
+    <!-- Bouton Burger (Mobile) -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav-menu">
+      <ul class="nav-list">
+        {navItems.map((item) => {
+          const isActive = item.href === '/' 
+            ? pathname === '/' 
+            : pathname.startsWith(item.href);
+
+          return (
+            <li>
+              <a href={item.href} class={isActive ? 'active' : ''}>
+                {item.name}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Script interactif exécuté uniquement sur le client -->
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  toggleBtn?.addEventListener('click', () => {
+    navMenu?.classList.toggle('is-open');
+    toggleBtn.classList.toggle('is-active');
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    height: 80px;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo-link img {
+    height: 42px;
+    width: auto;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-list a {
+    color: var(--color-neutral);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  .nav-list a:hover {
+    color: var(--color-primary-extralight);
+  }
+
+  .nav-list a.active {
+    color: var(--color-accent);
+  }
+
+  /* Menu Burger Mobile */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .bar {
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-neutral);
+    transition: all 0.3s ease;
+  }
+
+  /* Styles Responsive (Tablette & Mobile) */
+  @media (max-width: 767px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: var(--color-primary-dark);
+      padding: 24px 0;
+      display: none;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav.is-open {
+      display: block;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+</style>

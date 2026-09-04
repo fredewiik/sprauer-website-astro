@@ -1,0 +1,263 @@
+---
+// src/pages/vos-avocats.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "Vos avocats - Sprauer Avocats Paris";
+const pageDescription = "Les associés du cabinet mettent leur expertise et leur engagement au service de la défense de vos intérêts en droit des affaires et droit pénal.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1><span>Vos</span> Avocats</h1>
+          <p>
+            Les associés du cabinet mettent leur expertise et leur engagement au service de la défense de vos intérêts.<br /><br />
+            Chacun d’eux intervient dans des domaines juridiques complexes exigeant rigueur, réactivité et excellence, dans le respect des valeurs du cabinet.
+          </p>
+        </div>
+        <div class="hero-image">
+          <img 
+            src="https://front.sprauer.fr/wp-content/uploads/2025/08/justice-2060093.webp" 
+            alt="Statue de la Justice" 
+            width="700" 
+            height="700"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION VINCENT SPRAUER -->
+    <section class="lawyer-section vincent" id="vincent-sprauer">
+      <div class="container lawyer-grid">
+        <div class="lawyer-image">
+          <img 
+            src="https://front.sprauer.fr/wp-content/uploads/2025/08/vincent-sprauer.webp" 
+            alt="Maître Vincent Sprauer - Avocat à Paris" 
+            width="500" 
+            height="750"
+          />
+        </div>
+        <div class="lawyer-content">
+          <div class="lawyer-title">
+            <span class="triangle-icon">▲</span>
+            <h2>Vincent <span>Sprauer</span></h2>
+          </div>
+          <p class="subtitle">Avocat inscrit au Barreau de Paris depuis 2019.</p>
+          <div class="bio">
+            <p>
+              Fort d'une double compétence en droit privé et en langues étrangères appliquées, Maître SPRAUER est diplômé de l'Université Paris 1 Panthéon-Sorbonne.
+            </p>
+            <p>
+              Depuis 2019, il s'est forgé une solide expérience au sein de cabinets parisiens de renom, se distinguant sur des dossiers complexes en droit pénal et droit des affaires.
+            </p>
+            <p>
+              Son expertise s'étend à la défense des professionnels du chiffre et à l'accompagnement d'une clientèle diversifiée, tant en matière civile, commerciale que pénale.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION MÉLANIE MIROITE -->
+    <section class="lawyer-section melanie" id="melanie-miroite">
+      <div class="container lawyer-grid reverse">
+        <div class="lawyer-image">
+          <img 
+            src="https://front.sprauer.fr/wp-content/uploads/2025/08/melanie-miroite.webp" 
+            alt="Maître Mélanie Miroite - Avocate à Paris" 
+            width="500" 
+            height="750"
+          />
+        </div>
+        <div class="lawyer-content">
+          <div class="lawyer-title">
+            <span class="triangle-icon">▲</span>
+            <h2>Mélanie Miroite</h2>
+          </div>
+          <div class="bio">
+            <p>
+              Titulaire d’un Master 2 en droit des obligations civiles et commerciales délivré par l’Université Paris Descartes, Maître MIROITE a acquis au fil des années une connaissance pointue en droit d’asile et en droit des étrangers.
+            </p>
+            <p>
+              Aujourd’hui, Maître MIROITE plaide tous les jours devant la Cour Nationale du Droit d’Asile située à MONTREUIL, lui permettant ainsi de conseiller au mieux ses clients sur la procédure et les attentes spécifiques de cette juridiction.
+            </p>
+            <p>
+              Maître MIROITE est par ailleurs activement engagée dans les milieux associatifs participant à l’accueil et à l’insertion de personnes étrangères en France.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* HERO SECTION */
+  .hero {
+    padding: 80px 0;
+    background-color: var(--color-primary);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .hero-content h1 span {
+    color: var(--color-accent);
+  }
+
+  .hero-content p {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .hero-image img {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+
+  /* SECTIONS AVOCATS */
+  .lawyer-section {
+    padding: 90px 0;
+  }
+
+  .lawyer-section.vincent {
+    background-color: var(--color-neutral);
+    color: var(--color-primary);
+  }
+
+  .lawyer-section.melanie {
+    background-color: var(--color-primary-extralight);
+    color: var(--color-primary);
+  }
+
+  .lawyer-grid {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .lawyer-grid.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .lawyer-image {
+    flex: 1;
+    max-width: 440px;
+  }
+
+  .lawyer-image img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  .lawyer-content {
+    flex: 1.2;
+  }
+
+  .lawyer-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .lawyer-title h2 {
+    font-size: 2.25rem;
+    font-weight: 600;
+  }
+
+  .triangle-icon {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    transform: rotate(90deg);
+  }
+
+  .melanie .triangle-icon {
+    color: var(--color-primary);
+  }
+
+  .subtitle {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .bio p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* RESPONSIVE TABLETTE & MOBILE */
+  @media (max-width: 991px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .lawyer-grid,
+    .lawyer-grid.reverse {
+      flex-direction: column;
+      text-align: center;
+      gap: 40px;
+    }
+
+    .lawyer-image {
+      max-width: 100%;
+    }
+
+    .lawyer-image img {
+      height: 450px;
+    }
+
+    .lawyer-title {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .hero {
+      padding: 50px 0;
+    }
+
+    .lawyer-section {
+      padding: 60px 0;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+
+    .lawyer-title h2 {
+      font-size: 1.8rem;
+    }
+
+    .lawyer-image img {
+      height: 380px;
+    }
+  }
+</style>
