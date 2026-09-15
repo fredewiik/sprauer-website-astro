@@ -1,0 +1,269 @@
+---
+// src/pages/competences/[slug].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API || 'https://sprauer.fr/wp-json/wp/v2';
+  let items: any[] = [];
+  
+  try {
+    const res = await fetch(`${apiUrl}/competences?_embed&per_page=100`);
+    if (res.ok) {
+      items = await res.json();
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des compétences :", error);
+  }
+
+  return items.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+
+// Trailing slash sur baseUrl
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+const pageTitle = `${item.title?.rendered || 'Compétence'} - Sprauer Avocats Paris`;
+const pageDescription = item.excerpt?.rendered 
+  ? item.excerpt.rendered.replace(/<[^>]*>?/gm, '').trim()
+  : "Expertise et accompagnement juridique par le cabinet Sprauer Avocats à Paris.";
+
+// Extraction de l'image à la une (optionnelle)
+const media = item._embedded?.['wp:featuredmedia']?.[0];
+const featuredImage = media?.media_details?.sizes?.large?.source_url || media?.source_url || null;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="site-main">
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-container">
+        <a href={`${baseUrl}competences/`} class="back-link">
+          ← Toutes nos expertises
+        </a>
+        <h1 class="hero-title" set:html={item.title?.rendered} />
+      </div>
+    </section>
+
+    <!-- CONTENT SECTION -->
+    <section class="content-section">
+      <div class="container content-container">
+        {featuredImage && (
+          <div class="featured-image-wrapper">
+            <img src={featuredImage} alt={item.title?.rendered} class="featured-image" />
+          </div>
+        )}
+        
+        <!-- Injecte le corps d'article WordPress -->
+        <article class="competence-content" set:html={item.content?.rendered} />
+
+        <!-- CARTE D'ACTION (CTA) -->
+        <div class="cta-box">
+          <h3>Besoin d'un accompagnement dédié dans ce domaine ?</h3>
+          <p>Le cabinet Sprauer vous assiste et défend vos intérêts à chaque étape de la procédure.</p>
+          <a href={`${baseUrl}contact/`} class="btn-cta">
+            Prendre rendez-vous avec un avocat
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* HERO SECTION */
+  .hero {
+    background-color: var(--color-primary);
+    padding: 100px 0 60px 0;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hero-container {
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .back-link {
+    color: var(--color-accent);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+    transition: transform 0.2s ease;
+    display: inline-block;
+  }
+
+  .back-link:hover {
+    transform: translateX(-4px);
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-neutral);
+    margin-bottom: 16px;
+  }
+
+  /* CONTENT SECTION */
+  .content-section {
+    background-color: #ffffff;
+    padding: 70px 0 90px 0;
+    color: var(--color-primary-dark);
+  }
+
+  .content-container {
+    max-width: 860px;
+  }
+
+  .featured-image-wrapper {
+    margin-bottom: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .featured-image {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+  }
+
+  /* TYPOGRAPHIE CONTENU WORDPRESS (GUTENBERG) */
+  :global(.competence-content) {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #2c3e50;
+  }
+
+  :global(.competence-content h2) {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 48px 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-neutral);
+  }
+
+  :global(.competence-content h3) {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-primary-light);
+    margin: 36px 0 16px 0;
+  }
+
+  :global(.competence-content p) {
+    margin-bottom: 24px;
+  }
+
+  :global(.competence-content ul),
+  :global(.competence-content ol) {
+    margin: 0 0 24px 24px;
+    padding-left: 12px;
+  }
+
+  :global(.competence-content li) {
+    margin-bottom: 10px;
+  }
+
+  :global(.competence-content blockquote) {
+    border-left: 4px solid var(--color-accent);
+    background-color: var(--color-neutral);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+  }
+
+  :global(.competence-content blockquote p) {
+    margin: 0;
+    color: var(--color-primary-dark);
+  }
+
+  :global(.competence-content a) {
+    color: var(--color-primary-light);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 500;
+  }
+
+  :global(.competence-content a:hover) {
+    color: var(--color-accent);
+  }
+
+  :global(.competence-content img) {
+    border-radius: 8px;
+    margin: 32px 0;
+    height: auto;
+  }
+
+  /* CTA BOX */
+  .cta-box {
+    margin-top: 60px;
+    padding: 40px;
+    background-color: var(--color-primary);
+    border-radius: 8px;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .cta-box h3 {
+    font-size: 1.5rem;
+    color: var(--color-neutral);
+    margin-bottom: 12px;
+  }
+
+  .cta-box p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 32px;
+    border-radius: 50px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 170, 0, 0.3);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 767px) {
+    .hero {
+      padding: 60px 0 40px 0;
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+    }
+
+    .content-section {
+      padding: 40px 0 60px 0;
+    }
+
+    :global(.competence-content h2) {
+      font-size: 1.5rem;
+    }
+
+    .cta-box {
+      padding: 24px;
+    }
+  }
+</style>

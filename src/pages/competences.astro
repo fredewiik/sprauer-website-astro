@@ -4,39 +4,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "Compétences - Sprauer Avocats Paris";
 const pageDescription = "Découvrez l'ensemble des expertises du cabinet Sprauer Avocats à Paris : droit pénal, droit pénal des affaires et droit des affaires.";
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <main class="site-main">
-    <!-- Header -->
-    <header class="site-header" id="header">
-      <div class="container header-container">
-        <div class="header-inner">
-          <div class="logo-wrapper">
-            <a href=`${import.meta.env.BASE_URL}/`>
-              <img
-                class="logo-img"
-                src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp"
-                alt="logo-h-blanc"
-                srcset="https://sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc-300x83.webp 300w, https://sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp 725w"
-                sizes="(max-width: 725px) 100vw, 725px"
-                loading="lazy"
-              />
-            </a>
-          </div>
-          <nav class="nav-menu">
-            <ul class="nav-list">
-              <li class="nav-item"><a class="nav-link" href="https://sprauer.fr/">accueil</a></li>
-              <li class="nav-item"><a class="nav-link active" href="https://sprauer.fr/?page_id=3161">compétences</a></li>
-              <li class="nav-item"><a class="nav-link" href="https://sprauer.fr/vos-avocats/">vos avocats</a></li>
-              <li class="nav-item"><a class="nav-link" href="https://sprauer.fr/parlons-droit/">parlons droit</a></li>
-              <li class="nav-item"><a class="nav-link" href="https://sprauer.fr/contact/">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
-
     <!-- Hero -->
     <section class="hero-section" id="hero">
       <div class="container">
@@ -94,63 +69,63 @@ const pageDescription = "Découvrez l'ensemble des expertises du cabinet Sprauer
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-alex-qian-1180283-2325886.webp" alt="Plainte classée sans suite" loading="lazy" />
             <div class="card-content">
               <h3 class="card-title text-neutral">Plainte classée sans suite</h3>
-              <a class="card-btn btn-neutral" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn btn-neutral" href={`${baseUrl}competences/plainte-classee-sans-suite/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-2">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-karatara-278139-931317.webp" alt="Mise en examen" loading="lazy" />
             <div class="card-content">
               <h3 class="card-title text-neutral">Mise en examen</h3>
-              <a class="card-btn btn-neutral" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn btn-neutral" href={`${baseUrl}competences/mise-en-examen/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-3">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-ekaterina-bolovtsova-6077123.webp" alt="Comparution immédiate" loading="lazy" />
             <div class="card-content text-primary">
               <h3 class="card-title">Comparution immédiate</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/comparution-immediate/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-4">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-fred-18978472.webp" alt="Comparution sur reconnaissance préalable" height="400" />
             <div class="card-content">
               <h3 class="card-title text-white">Comparution sur reconnaissance préalable de culpabilité</h3>
-              <a class="card-btn btn-neutral" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn btn-neutral" href={`${baseUrl}competences/crpc/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-5">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Garde à vue" loading="lazy" />
             <div class="card-content text-primary">
               <h1 class="card-title-lg">Garde à vue</h1>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/garde-a-vue/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-6">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-scarlett-boute-144979497-11679719.webp" alt="Effacement TAJ & B2" loading="lazy" />
             <div class="card-content text-accent">
               <h3 class="card-title">Effacement TAJ &amp; B2</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/effacement-taj-b2/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-7">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-azamat-hatypov-97167739-31612532.webp" alt="Garde à vue" loading="lazy" />
             <div class="card-content">
               <h1 class="card-title text-white">Garde à vue</h1>
-              <a class="card-btn btn-white" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn btn-white" href={`${baseUrl}competences/garde-a-vue/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-8">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tattoodonor-tattoodonor-1160289080-25942440.webp" alt="Détention provisoire" loading="lazy" />
             <div class="card-content">
               <h1 class="card-title">Détention provisoire</h1>
-              <a class="card-btn btn-primary" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn btn-primary" href={`${baseUrl}competences/detention-provisoire/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-penal-9">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-francois-hanscotte-3537774-5292296-1.webp" alt="Garde à vue" loading="lazy" />
             <div class="card-content text-primary">
               <h3 class="card-title">Garde à vue</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/garde-a-vue/`}><span>En savoir plus</span></a>
             </div>
           </div>
         </div>
@@ -168,63 +143,63 @@ const pageDescription = "Découvrez l'ensemble des expertises du cabinet Sprauer
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-claudio-mota-105200226-9999874.webp" alt="Compliance" loading="lazy" />
             <div class="card-content text-primary">
               <h3 class="card-title">Compliance</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/compliance/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-2">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tom-pursey-3025008-4693103.webp" alt="Pratiques commerciale trompeuse" loading="lazy" />
             <div class="card-content text-primary">
               <h3 class="card-title">Pratiques commerciale trompeuse</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/pratiques-commerciales-trompeuses/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-3">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-lucaspcarlini-15097854.webp" alt="Escroquerie et blanchiment" loading="lazy" />
             <div class="card-content">
               <h3 class="card-title text-extralight">Escroquerie et blanchiment</h3>
-              <a class="card-btn btn-blue" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn btn-blue" href={`${baseUrl}competences/escroquerie-et-blanchiment/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-4">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-lindseygarrett-13987195.webp" alt="Responsabilité pénale" loading="lazy" />
             <div class="card-content text-primary">
               <h3 class="card-title">Responsabilité pénale et ordinale des experts comptables</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/responsabilite-penale-experts-comptables/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-5">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Garde à vue" loading="lazy" />
             <div class="card-content text-primary">
               <h1 class="card-title-lg">Garde à vue</h1>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/garde-a-vue/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-6">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-radubradu-395822838-16292110.webp" alt="Abus de biens sociaux" loading="lazy" />
             <div class="card-content text-accent">
               <h3 class="card-title">Abus de biens sociaux</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/abus-de-biens-sociaux/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-7">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-wondererphotograph-2564066.webp" alt="Fraude et optimisation fiscale" loading="lazy" />
             <div class="card-content">
               <h1 class="card-title text-dark">Fraude et optimisation fiscale</h1>
-              <a class="card-btn btn-primary" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn btn-primary" href={`${baseUrl}competences/fraude-et-optimisation-fiscale/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-8">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-mel-jlt-1582232815-27625129.webp" alt="Responsabilité pénale" loading="lazy" />
             <div class="card-content">
               <h1 class="card-title">Responsabilité pénale et ordinale des commissaires aux comptes</h1>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/responsabilite-penale-commissaires-aux-comptes/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-p-9">
             <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tbd-traveller-2149583744-30718760.webp" alt="Responsabilité pénale du dirigeant" loading="lazy" />
             <div class="card-content text-primary">
               <h3 class="card-title">Responsabilité pénale du dirigeant</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <a class="card-btn" href={`${baseUrl}competences/responsabilite-penale-du-dirigeant/`}><span>En savoir plus</span></a>
             </div>
           </div>
         </div>
@@ -239,66 +214,66 @@ const pageDescription = "Découvrez l'ensemble des expertises du cabinet Sprauer
         </div>
         <div class="grid-layout">
           <div class="card card-affaires-1">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-lomarie-loreine-aipar-2148255682-31583577.webp" alt="Plainte classée sans suite" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-lomarie-loreine-aipar-2148255682-31583577.webp" alt="Droit des sociétés" loading="lazy" />
             <div class="card-content text-primary">
-              <h3 class="card-title">Plainte classée sans suite</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h3 class="card-title">Droit des sociétés</h3>
+              <a class="card-btn" href={`${baseUrl}competences/droit-des-societes/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-2">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-jeffrey-czum-254391-2733955.webp" alt="Mise en examen" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-jeffrey-czum-254391-2733955.webp" alt="Contrats commerciaux" loading="lazy" />
             <div class="card-content text-primary">
-              <h3 class="card-title">Mise en examen</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h3 class="card-title">Contrats commerciaux</h3>
+              <a class="card-btn" href={`${baseUrl}competences/contrats-commerciaux/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-3">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-celine-3776818-15190885.webp" alt="Comparution immédiate" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-celine-3776818-15190885.webp" alt="Contentieux commercial" loading="lazy" />
             <div class="card-content text-primary">
-              <h3 class="card-title">Comparution immédiate</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h3 class="card-title">Contentieux commercial</h3>
+              <a class="card-btn" href={`${baseUrl}competences/contentieux-commercial/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-4">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-zacharie-elbaz-1911751498-31589387.webp" alt="Comparution sur reconnaissance préalable" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-zacharie-elbaz-1911751498-31589387.webp" alt="Entreprises en difficulté" loading="lazy" />
             <div class="card-content">
-              <h3 class="card-title text-extralight">Comparution sur reconnaissance préalable de culpabilité</h3>
-              <a class="card-btn btn-neutral" href="#"><span>En savoir plus</span></a>
+              <h3 class="card-title text-extralight">Entreprises en difficulté</h3>
+              <a class="card-btn btn-neutral" href={`${baseUrl}competences/entreprises-en-difficulte/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-5">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Garde à vue" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Baux commerciaux" loading="lazy" />
             <div class="card-content text-primary">
-              <h1 class="card-title-lg">Garde à vue</h1>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h1 class="card-title-lg">Baux commerciaux</h1>
+              <a class="card-btn" href={`${baseUrl}competences/baux-commerciaux/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-6">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-emily-252615-768125.webp" alt="Effacement TAJ & B2" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-emily-252615-768125.webp" alt="Concurrence déloyale" loading="lazy" />
             <div class="card-content text-accent">
-              <h3 class="card-title">Effacement TAJ &amp; B2</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h3 class="card-title">Concurrence déloyale</h3>
+              <a class="card-btn" href={`${baseUrl}competences/concurrence-deloyale/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-7">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-maxavans-5101782.webp" alt="Garde à vue" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-maxavans-5101782.webp" alt="Recouvrement de créances" loading="lazy" />
             <div class="card-content text-white">
-              <h1 class="card-title">Garde à vue</h1>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h1 class="card-title">Recouvrement de créances</h1>
+              <a class="card-btn" href={`${baseUrl}competences/recouvrement-creances/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-8">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-jan-van-der-wolf-11680885-29891328.webp" alt="Détention provisoire" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-jan-van-der-wolf-11680885-29891328.webp" alt="Cession de fonds de commerce" loading="lazy" />
             <div class="card-content text-primary">
-              <h1 class="card-title">Détention provisoire</h1>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h1 class="card-title">Cession de fonds de commerce</h1>
+              <a class="card-btn" href={`${baseUrl}competences/cession-fonds-de-commerce/`}><span>En savoir plus</span></a>
             </div>
           </div>
           <div class="card card-affaires-9">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Garde à vue" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Négociation contractuelle" loading="lazy" />
             <div class="card-content text-primary">
-              <h3 class="card-title">Garde à vue</h3>
-              <a class="card-btn" href="#"><span>En savoir plus</span></a>
+              <h3 class="card-title">Négociation contractuelle</h3>
+              <a class="card-btn" href={`${baseUrl}competences/negociation-contractuelle/`}><span>En savoir plus</span></a>
             </div>
           </div>
         </div>

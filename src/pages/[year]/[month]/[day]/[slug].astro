@@ -1,6 +1,11 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 
+// Trailing slash sur baseUrl
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
 export async function getStaticPaths() {
   let posts: any[] = [];
   
@@ -92,12 +97,18 @@ const featuredImage = getFeaturedImage(post);
 
         <div class="article-body" set:html={post.content.rendered} />
 
+        <!-- CARTE D'ACTION (CTA) -->
+        <div class="cta-box">
+          <h3>Vous faites face à une situation similaire ?</h3>
+          <p>Le cabinet Sprauer vous assiste et défend vos intérêts à chaque étape de la procédure.</p>
+          <a href={`${baseUrl}contact/`} class="btn-cta">
+            Prendre rendez-vous avec un avocat
+          </a>
+        </div>
+
         <div class="article-footer-nav">
           <a href=`${import.meta.env.BASE_URL}/parlons-droit/` class="btn-back">
             ← Tous les articles
-          </a>
-          <a href=`${import.meta.env.BASE_URL}/contact/` class="btn-contact">
-            Prendre rendez-vous
           </a>
         </div>
       </div>
@@ -151,7 +162,7 @@ const featuredImage = getFeaturedImage(post);
 
   /* LAYOUT ARTICLE */
   .article-wrapper {
-    padding: 60px 0 90px 0;
+    padding: 60px 0 50px 0;
     background-color: #ffffff;
   }
 
@@ -289,5 +300,43 @@ const featuredImage = getFeaturedImage(post);
       align-items: stretch;
       text-align: center;
     }
+  }
+
+  /* CTA BOX */
+  .cta-box {
+    margin-top: 60px;
+    padding: 40px;
+    background-color: var(--color-primary);
+    border-radius: 8px;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .cta-box h3 {
+    font-size: 1.5rem;
+    color: var(--color-neutral);
+    margin-bottom: 12px;
+  }
+
+  .cta-box p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 32px;
+    border-radius: 50px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 170, 0, 0.3);
   }
 </style>
