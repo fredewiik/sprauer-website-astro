@@ -21,6 +21,11 @@ export async function getStaticPaths({ paginate }: any) {
 const { page } = Astro.props;
 const posts = page.data;
 
+// S'assure d'avoir un trailing slash propre sur le BASE_URL
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
 const pageTitle = page.currentPage > 1 
   ? `Parlons droit - Page ${page.currentPage} - Sprauer Avocats Paris` 
   : "Parlons droit - Sprauer Avocats Paris";
@@ -53,7 +58,7 @@ function formatDate(dateString: string) {
 
 // Construction des URLs statiques de pagination
 function getPageUrl(pageNum: number) {
-  return pageNum === 1 ? '/parlons-droit/' : `/parlons-droit/${pageNum}/`;
+  return pageNum === 1 ? `${baseUrl}parlons-droit/` : `${baseUrl}parlons-droit/${pageNum}/`;
 }
 ---
 
@@ -93,7 +98,7 @@ function getPageUrl(pageNum: number) {
                 const year = d.getFullYear();
                 const month = String(d.getMonth() + 1).padStart(2, '0');
                 const day = String(d.getDate()).padStart(2, '0');
-                const articleUrl = `/${year}/${month}/${day}/${post.slug}/`;
+                const articleUrl = `${baseUrl}${year}/${month}/${day}/${post.slug}/`;
 
                 return (
                   <article class="article-card">

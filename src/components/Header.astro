@@ -4,19 +4,24 @@
 // Récupération de l'URL courante pour surligner le lien actif
 const pathname = new URL(Astro.request.url).pathname;
 
+// S'assure d'avoir un trailing slash propre sur le BASE_URL (ex: "/mon-repo/")
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
 const navItems = [
-  { name: 'ACCUEIL', href: '/' },
-  { name: 'COMPETENCES', href: '/competences/' },
-  { name: 'VOS AVOCATS', href: '/vos-avocats/' },
-  { name: 'PARLONS DROIT', href: '/parlons-droit/' },
-  { name: 'CONTACT', href: '/contact/' },
+  { name: 'ACCUEIL', path: '' },
+  { name: 'COMPETENCES', path: 'competences/' },
+  { name: 'VOS AVOCATS', path: 'vos-avocats/' },
+  { name: 'PARLONS DROIT', path: 'parlons-droit/' },
+  { name: 'CONTACT', path: 'contact/' },
 ];
 ---
 
 <header class="header">
   <div class="container header-container">
     <!-- Logo -->
-    <a href=`${import.meta.env.BASE_URL}/` class="logo-link">
+    <a href={baseUrl} class="logo-link">
       <img 
         src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp" 
         alt="Sprauer Avocats Logo" 
@@ -36,13 +41,15 @@ const navItems = [
     <nav class="nav" id="nav-menu">
       <ul class="nav-list">
         {navItems.map((item) => {
-          const isActive = item.href === '/' 
-            ? pathname === '/' 
-            : pathname.startsWith(item.href);
+          const fullHref = `${baseUrl}${item.path}`;
+
+          const isActive = item.path === '' 
+            ? (pathname === baseUrl || pathname === `${baseUrl}index.html`)
+            : pathname.startsWith(fullHref);
 
           return (
             <li>
-              <a href={item.href} class={isActive ? 'active' : ''}>
+              <a href={fullHref} class={isActive ? 'active' : ''}>
                 {item.name}
               </a>
             </li>
