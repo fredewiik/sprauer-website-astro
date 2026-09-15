@@ -1,13 +1,13 @@
 ---
 // src/pages/competences/[slug].astro
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API || 'https://sprauer.fr/wp-json/wp/v2';
   let items: any[] = [];
   
   try {
-    const res = await fetch(`${apiUrl}/competences?lang=fr&_embed&per_page=100`);
+    const res = await fetch(`${apiUrl}/competences?lang=en&_embed&per_page=100`);
     if (res.ok) {
       items = await res.json();
     }
@@ -23,10 +23,12 @@ export async function getStaticPaths() {
 
 const { item } = Astro.props;
 
-// Trailing slash sur baseUrl
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
   ? import.meta.env.BASE_URL 
   : `${import.meta.env.BASE_URL}/`;
+
+// URL de base pour la version anglaise
+const enBaseUrl = `${baseUrl}en/`;
 
 const pageTitle = `${item.title?.rendered || 'Compétence'} - Sprauer Avocats Paris`;
 const pageDescription = item.excerpt?.rendered 
@@ -43,7 +45,7 @@ const featuredImage = media?.media_details?.sizes?.large?.source_url || media?.s
     <!-- HERO SECTION -->
     <section class="hero">
       <div class="container hero-container">
-        <a href={`${baseUrl}competences/`} class="back-link">
+        <a href={`${enBaseUrl}competences/`} class="back-link">
           ← Toutes nos expertises
         </a>
         <h1 class="hero-title" set:html={item.title?.rendered} />
@@ -66,7 +68,7 @@ const featuredImage = media?.media_details?.sizes?.large?.source_url || media?.s
         <div class="cta-box">
           <h3>Besoin d'un accompagnement dédié dans ce domaine ?</h3>
           <p>Le cabinet Sprauer vous assiste et défend vos intérêts à chaque étape de la procédure.</p>
-          <a href={`${baseUrl}contact/`} class="btn-cta">
+          <a href={`${enBaseUrl}contact/`} class="btn-cta">
             Prendre rendez-vous avec un avocat
           </a>
         </div>

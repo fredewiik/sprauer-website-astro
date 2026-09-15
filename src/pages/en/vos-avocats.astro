@@ -1,6 +1,13 @@
 ---
 // src/pages/vos-avocats.astro
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+// URL de base pour la version anglaise
+const enBaseUrl = `${baseUrl}en/`;
 
 const pageTitle = "Vos avocats - Sprauer Avocats Paris";
 const pageDescription = "Les associés du cabinet mettent leur expertise et leur engagement au service de la défense de vos intérêts en droit des affaires et droit pénal.";

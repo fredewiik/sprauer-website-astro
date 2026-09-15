@@ -1,16 +1,18 @@
 ---
-import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 
-// Trailing slash sur baseUrl
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
   ? import.meta.env.BASE_URL 
   : `${import.meta.env.BASE_URL}/`;
+
+// URL de base pour la version anglaise
+const enBaseUrl = `${baseUrl}en/`;
 
 export async function getStaticPaths() {
   let posts: any[] = [];
   
   try {
-    const res = await fetch('https://front.sprauer.fr/wp-json/wp/v2/posts?lang=fr&_embed&per_page=100');
+    const res = await fetch('https://front.sprauer.fr/wp-json/wp/v2/posts?lang=en&_embed&per_page=100');
     if (res.ok) posts = await res.json();
   } catch (error) {
     console.error("Erreur récupération articles :", error);
@@ -71,7 +73,7 @@ const featuredImage = getFeaturedImage(post);
     <!-- HERO ARTICLE -->
     <header class="article-hero">
       <div class="container hero-container">
-        <a href=`${import.meta.env.BASE_URL}/parlons-droit/` class="back-link">
+        <a href=`${enBaseUrl}/parlons-droit/` class="back-link">
           ← Retour aux articles
         </a>
         <div class="article-meta">
@@ -101,13 +103,13 @@ const featuredImage = getFeaturedImage(post);
         <div class="cta-box">
           <h3>Vous faites face à une situation similaire ?</h3>
           <p>Le cabinet Sprauer vous assiste et défend vos intérêts à chaque étape de la procédure.</p>
-          <a href={`${baseUrl}contact/`} class="btn-cta">
+          <a href={`${enBaseUrl}contact/`} class="btn-cta">
             Prendre rendez-vous avec un avocat
           </a>
         </div>
 
         <div class="article-footer-nav">
-          <a href=`${import.meta.env.BASE_URL}/parlons-droit/` class="btn-back">
+          <a href=`${enBaseUrl}/parlons-droit/` class="btn-back">
             ← Tous les articles
           </a>
         </div>

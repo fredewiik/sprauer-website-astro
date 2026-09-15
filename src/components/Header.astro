@@ -1,27 +1,51 @@
 ---
 // src/components/Header.astro
-
-// Récupération de l'URL courante pour surligner le lien actif
 const pathname = new URL(Astro.request.url).pathname;
 
-// S'assure d'avoir un trailing slash propre sur le BASE_URL (ex: "/mon-repo/")
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
   ? import.meta.env.BASE_URL 
   : `${import.meta.env.BASE_URL}/`;
 
-const navItems = [
-  { name: 'ACCUEIL', path: '' },
-  { name: 'COMPETENCES', path: 'competences/' },
-  { name: 'VOS AVOCATS', path: 'vos-avocats/' },
-  { name: 'PARLONS DROIT', path: 'parlons-droit/' },
-  { name: 'CONTACT', path: 'contact/' },
-];
+// Détection de la langue courante
+const isEn = pathname.startsWith(`${baseUrl}en/`) || pathname === `${baseUrl}en`;
+
+// Génération des URLs cibles pour le sélecteur de langue
+let frPath = '';
+let enPath = '';
+
+if (isEn) {
+  enPath = pathname;
+  // Retire "/en/" pour revenir à la version FR
+  frPath = pathname.replace(`${baseUrl}en/`, baseUrl).replace(`${baseUrl}en`, baseUrl);
+} else {
+  frPath = pathname;
+  // Ajoute "/en/" après la baseUrl pour basculer en EN
+  const relativePath = pathname.substring(baseUrl.length);
+  enPath = `${baseUrl}en/${relativePath}`;
+}
+
+// Menus de navigation FR / EN
+const navItems = isEn 
+  ? [
+      { name: 'HOME', path: 'en/' },
+      { name: 'EXPERTISE', path: 'en/competences/' },
+      { name: 'LAWYERS', path: 'en/vos-avocats/' },
+      { name: 'INSIGHTS', path: 'en/parlons-droit/' },
+      { name: 'CONTACT', path: 'en/contact/' },
+    ]
+  : [
+      { name: 'ACCUEIL', path: '' },
+      { name: 'COMPETENCES', path: 'competences/' },
+      { name: 'VOS AVOCATS', path: 'vos-avocats/' },
+      { name: 'PARLONS DROIT', path: 'parlons-droit/' },
+      { name: 'CONTACT', path: 'contact/' },
+    ];
 ---
 
 <header class="header">
   <div class="container header-container">
     <!-- Logo -->
-    <a href={baseUrl} class="logo-link">
+    <a href={isEn ? `${baseUrl}en/` : baseUrl} class="logo-link">
       <img 
         src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp" 
         alt="Sprauer Avocats Logo" 
@@ -42,9 +66,8 @@ const navItems = [
       <ul class="nav-list">
         {navItems.map((item) => {
           const fullHref = `${baseUrl}${item.path}`;
-
-          const isActive = item.path === '' 
-            ? (pathname === baseUrl || pathname === `${baseUrl}index.html`)
+          const isActive = item.path === '' || item.path === 'en/'
+            ? (pathname === fullHref || pathname === `${fullHref}index.html`)
             : pathname.startsWith(fullHref);
 
           return (
@@ -56,11 +79,17 @@ const navItems = [
           );
         })}
       </ul>
+
+      <!-- Sélecteur de langue -->
+      <div class="lang-switcher">
+        <a href={frPath} class={!isEn ? 'lang-active' : ''}>FR</a>
+        <span class="lang-separator">|</span>
+        <a href={enPath} class={isEn ? 'lang-active' : ''}>EN</a>
+      </div>
     </nav>
   </div>
 </header>
 
-<!-- Script interactif exécuté uniquement sur le client -->
 <script>
   const toggleBtn = document.getElementById('menu-toggle');
   const navMenu = document.getElementById('nav-menu');
@@ -95,9 +124,15 @@ const navItems = [
     width: auto;
   }
 
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
   .nav-list {
     display: flex;
-    gap: 36px;
+    gap: 32px;
     list-style: none;
   }
 
@@ -118,7 +153,37 @@ const navItems = [
     color: var(--color-accent);
   }
 
-  /* Menu Burger Mobile */
+  /* Style du Sélecteur de langue */
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-neutral);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 16px;
+  }
+
+  .lang-switcher a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .lang-switcher a:hover {
+    color: var(--color-accent);
+  }
+
+  .lang-switcher a.lang-active {
+    color: var(--color-accent);
+  }
+
+  .lang-separator {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Responsive Mobile */
   .menu-toggle {
     display: none;
     background: none;
@@ -136,8 +201,7 @@ const navItems = [
     transition: all 0.3s ease;
   }
 
-  /* Styles Responsive (Tablette & Mobile) */
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     .menu-toggle {
       display: flex;
     }
@@ -150,17 +214,26 @@ const navItems = [
       background-color: var(--color-primary-dark);
       padding: 24px 0;
       display: none;
+      flex-direction: column;
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     }
 
     .nav.is-open {
-      display: block;
+      display: flex;
     }
 
     .nav-list {
       flex-direction: column;
       align-items: center;
       gap: 20px;
+    }
+
+    .lang-switcher {
+      border-left: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 0;
+      padding-top: 16px;
+      margin-top: 10px;
     }
   }
 </style>

@@ -1,0 +1,213 @@
+---
+// src/pages/mentions-legales.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+// URL de base pour la version anglaise
+const enBaseUrl = `${baseUrl}en/`;
+
+const pageTitle = "Mentions légales - Sprauer Avocats Paris";
+const pageDescription = "Mentions légales, politique de confidentialité RGPD et informations d'hébergement du cabinet Sprauer Avocats à Paris.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="legal-page">
+    <section class="legal-section">
+      <div class="container container-narrow">
+        <h1>Mentions légales</h1>
+
+        <div class="legal-content">
+          <!-- CONTACT & ÉDITEUR -->
+          <article class="legal-block">
+            <h2>Contact</h2>
+            <p>
+              <strong>Sprauer Avocats</strong><br />
+              43 boulevard Haussmann 75009 Paris<br />
+              Téléphone : <a href="tel:0140367487">01 40 36 74 87</a><br />
+              Courriel : <a href="mailto:cabinet@sprauer.fr">cabinet@sprauer.fr</a>
+            </p>
+            <p>
+              Numéro SIREN : 847 484 003<br />
+              Directeur de la publication : Maître Vincent Sprauer
+            </p>
+          </article>
+
+          <!-- HÉBERGEMENT -->
+          <article class="legal-block">
+            <h2>Hébergement</h2>
+            <p>
+              Le Site est hébergé sur les serveurs de :<br />
+              <strong>O2Switch</strong><br />
+              Chemin des Pardiaux<br />
+              63000 Clermont-Ferrand
+            </p>
+            <p>
+              Développement web : Guillaume Knibiehly / Frédéric Lepy
+            </p>
+          </article>
+
+          <!-- INFORMATIQUE ET LIBERTÉS -->
+          <article class="legal-block">
+            <h2>Informatique et libertés</h2>
+            <p>
+              Le site est susceptible de recueillir certaines informations nominatives vous concernant. Ces informations sont exclusivement destinées à vous fournir toute information sur notre Cabinet et ses services.
+            </p>
+            <p>
+              Ces données sont traitées conformément à la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, qui vous autorise à demander à tout moment la communication des informations vous concernant à l’adresse ci-dessus.
+            </p>
+          </article>
+
+          <!-- PROPRIÉTÉ INTELLECTUELLE -->
+          <article class="legal-block">
+            <h2>Propriété intellectuelle</h2>
+            <p>
+              L’utilisation du site ne vous confère aucun droit. Ces droits restent la propriété exclusive du Cabinet Sprauer Avocats.
+            </p>
+            <p>
+              Tous les textes, articles, études, photos, données, logos, marques et autres éléments reproduits sur le Site sont réservés et protégés par le droit de la propriété intellectuelle, notamment droits d’auteur, droits voisins, droits des marques.
+            </p>
+            <p>
+              À ce titre, et conformément au Code de la Propriété Intellectuelle, seule l’utilisation pour un usage privé dans un cercle de famille est autorisée et toute autre utilisation est constitutive de contrefaçon et/ou d’atteinte aux droits voisins, sanctionnées par ledit Code.
+            </p>
+            <p>
+              En conséquence, vous ne pouvez en aucun cas et d’aucune manière, reproduire, représenter, diffuser, commercialiser, modifier, concéder tout ou partie de l’un quelconque des éléments reproduits sur le site et tout ou partie du site en général, sans l’accord préalable et express du Cabinet Sprauer Avocats. Toute utilisation illicite de tout ou partie du site (piratage, contrefaçon, etc.) pourra donner lieu à des poursuites.
+            </p>
+          </article>
+
+          <!-- RGPD -->
+          <article class="legal-block">
+            <h2>RGPD</h2>
+            <p>
+              En application des articles 13 et 14 du Règlement européen Général sur la Protection des Données (2016/679) et de l’article 32 de la loi Informatique et Libertés du 6 janvier 1978 modifiée, le Directeur de Publication du Site vous informe que :
+            </p>
+            <ul>
+              <li><strong>Responsable du fichier :</strong> Le Cabinet Sprauer Avocats, Délégué à la Protection des Données – DPO.</li>
+              <li><strong>Données protégées :</strong> L’ensemble de vos données personnelles.</li>
+              <li><strong>Finalités :</strong> Pour la protection de votre vie privée, dans le cadre du traitement de votre dossier, qu’il s’agisse d’un dossier juridique, judiciaire ou d’arbitrage.</li>
+              <li><strong>Registre :</strong> Les données sont conservées dans un registre tenu par le Cabinet Sprauer Avocats.</li>
+              <li><strong>Durée de conservation :</strong> Vos données sont traitées et conservées dès votre prise d’attache, y compris pour le simple établissement d’un devis ou lors de la prise d’un rendez-vous. Elles ne seront conservées que 52 semaines dans l’hypothèse où le rendez-vous ne serait pas honoré. Dans tous les autres cas, elles seront conservées pendant un délai de 5 années à compter du dernier acte juridique ou judiciaire réalisé par le Cabinet Sprauer Avocats.</li>
+              <li><strong>Sécurité :</strong> Vos données sont stockées via un système informatique protégé et sécurisé.</li>
+            </ul>
+            <p>
+              Pour toute question ou demande de rectification, vous pouvez envoyer un mail à : 
+              <a href="mailto:cabinet@sprauer.fr?subject=Demande%20de%20rectification%20RGPD">cabinet@sprauer.fr</a>
+            </p>
+          </article>
+
+          <!-- MÉDIATION -->
+          <article class="legal-block">
+            <h2>Médiation</h2>
+            <p>
+              Conformément aux dispositions des articles L.612-1 et suivants du Code de la consommation, vous avez la possibilité, en cas de litige, de recourir gratuitement au Médiateur de la consommation auprès du Conseil National des Barreaux (CNB) dont les coordonnées sont les suivantes :
+            </p>
+            <p class="address-box">
+              <strong>CNB, Médiateur à la consommation</strong><br />
+              180 boulevard Haussmann – 75008 Paris
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 80px 0 100px 0;
+    min-height: 80vh;
+  }
+
+  .container-narrow {
+    max-width: 860px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--color-primary-light, #114080);
+    padding-bottom: 20px;
+  }
+
+  .legal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .legal-block h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 15px;
+  }
+
+  .legal-block p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-neutral, #f0ece8);
+    margin-bottom: 15px;
+  }
+
+  .legal-block a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+  }
+
+  .legal-block a:hover {
+    opacity: 0.8;
+  }
+
+  .legal-block ul {
+    margin: 15px 0 20px 20px;
+    padding: 0;
+    list-style-type: disc;
+  }
+
+  .legal-block li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-neutral, #f0ece8);
+    margin-bottom: 10px;
+  }
+
+  .legal-block li strong {
+    color: #ffffff;
+  }
+
+  .address-box {
+    background-color: var(--color-primary-light, #114080);
+    padding: 15px 20px;
+    border-radius: 6px;
+    border-left: 4px solid var(--color-accent);
+    display: inline-block;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 767px) {
+    .legal-page {
+      padding: 50px 0 70px 0;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .legal-block h2 {
+      font-size: 1.25rem;
+    }
+
+    .legal-block p, 
+    .legal-block li {
+      font-size: 0.95rem;
+    }
+  }
+</style>

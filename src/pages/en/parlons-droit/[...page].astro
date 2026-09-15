@@ -1,0 +1,360 @@
+---
+// src/pages/parlons-droit/[...page].astro
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths({ paginate }: any) {
+  let allPosts: any[] = [];
+  
+  try {
+    const res = await fetch('https://front.sprauer.fr/wp-json/wp/v2/posts?_embed&per_page=100');
+    if (res.ok) {
+      allPosts = await res.json();
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des articles WordPress :", error);
+  }
+
+  // Génère automatiquement les pages statiques (8 articles par page)
+  return paginate(allPosts, { pageSize: 8 });
+}
+
+const { page } = Astro.props;
+const posts = page.data;
+
+// S'assure d'avoir un trailing slash propre sur le BASE_URL
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+const pageTitle = page.currentPage > 1 
+  ? `Parlons droit - Page ${page.currentPage} - Sprauer Avocats Paris` 
+  : "Parlons droit - Sprauer Avocats Paris";
+
+const pageDescription = "Éclairages clairs et accessibles sur des notions juridiques essentielles, rédigés par les avocats du cabinet Sprauer à Paris.";
+
+// Extraction des images WordPress
+function getFeaturedImage(post: any) {
+  const fallback = "https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp";
+  const media = post._embedded?.['wp:featuredmedia']?.[0];
+  if (!media) return fallback;
+
+  return (
+    media.media_details?.sizes?.medium_large?.source_url ||
+    media.media_details?.sizes?.large?.source_url ||
+    media.media_details?.sizes?.full?.source_url ||
+    media.source_url ||
+    fallback
+  );
+}
+
+// Formatage de la date (DD.MM.YYYY)
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+}
+
+// Construction des URLs statiques de pagination
+function getPageUrl(pageNum: number) {
+  return pageNum === 1 ? `${baseUrl}parlons-droit/` : `${baseUrl}parlons-droit/${pageNum}/`;
+}
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1><span>Parlons</span> droit</h1>
+          <p>
+            Parce que le droit soulève souvent des questions complexes, le cabinet Sprauer vous propose à travers cette rubrique des éclairages clairs et accessibles sur des notions juridiques essentielles.<br /><br />
+            Sans prétendre à l’exhaustivité, ces articles ont pour vocation de vous aider à mieux comprendre les enjeux de certaines situations, à la lumière de notre pratique.
+          </p>
+        </div>
+        <div class="hero-image">
+          <img 
+            src="https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp" 
+            alt="Bibliothèque juridique - Sprauer Avocats" 
+            width="500" 
+            height="500"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION ARTICLES -->
+    <section class="articles-section">
+      <div class="container">
+        {posts.length > 0 ? (
+          <>
+            <div class="articles-grid">
+              {posts.map((post: any) => {
+                const imageUrl = getFeaturedImage(post);
+                const title = post.title?.rendered || "";
+                const d = new Date(post.date);
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                const articleUrl = `${baseUrl}${year}/${month}/${day}/${post.slug}/`;
+
+                return (
+                  <article class="article-card">
+                    <div class="article-image">
+                      <img 
+                        src={imageUrl} 
+                        alt={post.title?.rendered || "Article Sprauer"} 
+                        loading="lazy" 
+                        onerror="this.onerror=null;this.src='https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp';"
+                      />
+                    </div>
+                    <div class="article-content">
+                      <p class="article-date">{formatDate(post.date)}</p>
+                      <h2 class="article-title" set:html={title} />
+                      <div class="article-btn-wrapper">
+                        <a href=en/{articleUrl} class="btn-read-more">
+                          Lire plus
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <!-- PAGINATION STATIQUE -->
+            {page.lastPage > 1 && (
+              <nav class="pagination-container" aria-label="Pagination des articles">
+                <ul class="pagination">
+                  {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
+                    <li>
+                      <a 
+                        href=en/{getPageUrl(pageNum)} 
+                        class={`pagination-item ${pageNum === page.currentPage ? 'active' : ''}`}
+                      >
+                        {pageNum}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </>
+        ) : (
+          <p class="no-posts">Aucun article n'a été trouvé.</p>
+        )}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* HERO SECTION */
+  .hero {
+    padding: 80px 0;
+    background-color: var(--color-primary);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .hero-content h1 span {
+    color: var(--color-accent);
+  }
+
+  .hero-content p {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ffffff;
+  }
+
+  .hero-image img {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ARTICLES SECTION */
+  .articles-section {
+    padding: 70px 0;
+    background-color: #ffffff;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  /* CARTE ARTICLE */
+  .article-card {
+    background-color: var(--color-primary-extralight);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  }
+
+  .article-image {
+    height: 230px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #e0e0e0;
+  }
+
+  .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-content {
+    padding: 16px 16px 24px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  .article-date {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-primary-dark);
+    margin: 0 0 8px 0;
+  }
+
+  .article-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--color-primary-dark);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .article-btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    padding-top: 15px;
+  }
+
+  .btn-read-more {
+    display: inline-block;
+    color: var(--color-primary-dark);
+    font-size: 1rem;
+    font-weight: 500;
+    border: 2px solid var(--color-primary-dark);
+    border-radius: 50px;
+    padding: 4px 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-read-more:hover {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+  }
+
+  /* PAGINATION STYLES */
+  :global(.pagination-container) {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  :global(.pagination) {
+    display: flex !important;
+    gap: 8px !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  :global(.pagination-item) {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 6px 14px;
+    border: 1px solid #c7c9cb;
+    border-radius: 5px;
+    color: var(--color-primary-dark, #0a244a);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  :global(.pagination-item:hover),
+  :global(.pagination-item.active) {
+    background-color: var(--color-primary-dark, #0a244a);
+    color: #ffffff !important;
+    border-color: var(--color-primary-dark, #0a244a);
+  }
+
+  .no-posts {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    padding: 40px 0;
+  }
+
+  /* RESPONSIVE DESIGN */
+  @media (max-width: 1100px) {
+    .articles-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 991px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .articles-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 575px) {
+    .hero {
+      padding: 50px 0;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .article-card {
+      height: auto;
+      min-height: 460px;
+    }
+  }
+</style>

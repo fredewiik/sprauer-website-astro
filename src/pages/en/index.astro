@@ -1,0 +1,309 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+// URL de base pour la version anglaise
+const enBaseUrl = `${baseUrl}en/`;
+
+const urgences = [
+  { title: "Un problème avec un contrat ?", bg: "var(--color-primary)", text: "#fff" },
+  { title: "Une information judiciaire ?", bg: "var(--color-neutral)", text: "var(--color-primary)" },
+  { title: "Une création de société ?", bg: "var(--color-primary-extralight)", text: "var(--color-primary)" },
+  { title: "Une garde à vue ?", bg: "var(--color-accent)", text: "var(--color-primary-dark)" },
+  { title: "Une comparution immédiate ?", bg: "var(--color-primary-light)", text: "#fff" },
+  { title: "Un accompagnement à l'OFPRA ?", bg: "var(--color-primary-dark)", text: "var(--color-accent)" },
+];
+---
+
+<BaseLayout>
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1><span>Défense</span> pénale & contentieux <span>des affaires</span></h1>
+          <p>
+            Spécialisé en droit des affaires et en droit pénal, notre cabinet vous offre une expertise pointue et un accompagnement personnalisé.<br/><br/>
+            Défendez vos droits avec assurance grâce à notre expérience et notre engagement.
+          </p>
+        </div>
+        <div class="hero-image">
+          <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/palais-de-justice.webp" alt="Palais de Justice" width="1000" height="925" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION GRILLE URGENCES (4x3) -->
+    <section class="urgences">
+      <div class="container">
+        <div class="urgences-grid">
+          <!-- Bloc 1 -->
+          <div class="card" style="background: var(--color-primary); color: #fff;">
+            <h2>Un problème avec un contrat ?</h2>
+            <a href=`${enBaseUrl}/contact/` class="btn btn-outline-white">Nous contacter</a>
+          </div>
+          <!-- Bloc 2 -->
+          <div class="card" style="background: var(--color-neutral); color: var(--color-primary);">
+            <h2>Une information<br/>judiciaire ?</h2>
+            <a href=`${enBaseUrl}/contact/` class="btn btn-outline-blue">Nous contacter</a>
+          </div>
+          <!-- Bloc 3 -->
+          <div class="card" style="background: var(--color-primary-extralight); color: var(--color-primary);">
+            <h2>Une création de société ?</h2>
+            <a href=`${enBaseUrl}/contact/` class="btn btn-outline-blue">Nous contacter</a>
+          </div>
+          <!-- Image 1 -->
+          <div class="card-image">
+            <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/porte-et-robe.webp" alt="Porte et robe d'avocat" />
+          </div>
+
+          <!-- Image 2 -->
+          <div class="card-image">
+            <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/porte-tribunal.webp" alt="Porte du tribunal" />
+          </div>
+          <!-- Image 3 -->
+          <div class="card-image">
+            <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/themis-statue.webp" alt="Statue de Thémis" />
+          </div>
+          <!-- Image 4 -->
+          <div class="card-image">
+            <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/tribunal-paris.webp" alt="Tribunal de Paris" />
+          </div>
+          <!-- Bloc 4 -->
+          <div class="card" style="background: var(--color-primary-dark); color: var(--color-accent);">
+            <h2>Un accompagnement<br/>à l'OFPRA ?</h2>
+            <a href=`${enBaseUrl}/contact/` class="btn btn-outline-gold">Nous contacter</a>
+          </div>
+
+          <!-- Bloc 5 -->
+          <div class="card" style="background: var(--color-accent); color: var(--color-primary-dark);">
+            <h2>Une garde à vue ?</h2>
+            <a href=`${enBaseUrl}/contact/` class="btn btn-outline-dark">Nous contacter</a>
+          </div>
+          <!-- Image 5 -->
+          <div class="card-image">
+            <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp" alt="Bibliothèque juridique" />
+          </div>
+          <!-- Bloc 6 -->
+          <div class="card" style="background: var(--color-primary-light); color: #fff;">
+            <h2>Une comparution<br/>immédiate ?</h2>
+            <a href=`${enBaseUrl}/contact/` class="btn btn-outline-white">Nous contacter</a>
+          </div>
+          <!-- Image 6 -->
+          <div class="card-image">
+            <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/porte-cabinet.webp" alt="Porte du cabinet" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION LE CABINET -->
+    <section class="section-padding cabinet" id="le-cabinet">
+      <div class="container split-layout">
+        <div class="split-text">
+          <div class="section-title">
+            <span class="triangle-icon">▲</span>
+            <h2>Le cabinet</h2>
+          </div>
+          <p>
+            Situé au cœur du 9e arrondissement de Paris, notre cabinet d'avocats se distingue par une expertise technique haut de gamme, un engagement sans faille envers nos clients et offre des solutions juridiques personnalisées et adaptées aux spécificités de chaque dossier qui nous est confié :
+          </p>
+          <ul class="features-list">
+            <li>Spécialisé en Droit des affaires & Droit pénal</li>
+            <li>Relation de confiance et de transparence</li>
+            <li>Intervient à travers toute la France métropolitaine et en Outre-mer</li>
+          </ul>
+        </div>
+        <div class="split-image">
+          <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/leCabinet.webp" alt="Le Cabinet Sprauer" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION HONORAIRES -->
+    <section class="section-padding honoraires" id="honoraires">
+      <div class="container split-layout reverse">
+        <div class="split-text">
+          <div class="section-title">
+            <h2>Honoraires</h2>
+            <span class="triangle-icon rotate-down">▲</span>
+          </div>
+          <p>
+            Conformément aux obligations déontologiques de la profession d’avocat, le montant des honoraires est fixé en fonction de différents critères liés notamment à la difficulté de l’affaire, aux diligences nécessaires, au temps passé et aux frais exposés.<br/><br/>
+            Plusieurs alternatives peuvent vous être proposées lors du premier rendez-vous :
+          </p>
+          <ul class="features-list">
+            <li>Facturation au temps passé sur la base d'un taux horaire</li>
+            <li>Facturation forfaitaire selon la nature du dossier</li>
+            <li>Honoraires de résultat fixés à l'avance</li>
+            <li>Abonnement offrant un accès illimité aux conseils juridiques</li>
+          </ul>
+          <p class="small-text">
+            Dans certains cas, les honoraires pourront être pris en charge par votre assurance protection juridique.
+          </p>
+        </div>
+        <div class="split-image">
+          <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/honoraire-image.webp" alt="Honoraires cabinet avocat" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION PRO BONO -->
+    <section class="section-padding probono" id="pro-bono">
+      <div class="container split-layout">
+        <div class="split-text">
+          <div class="section-title">
+            <span class="triangle-icon">▲</span>
+            <h2>Pro Bono, consultations gratuites</h2>
+          </div>
+          <p>
+            « Pro bono » provient d’une locution latine qui signifie « pour le bien public ».<br/><br/>
+            Nous croyons fermement que l’accès à la justice est un droit fondamental. C’est pourquoi nous nous engageons activement dans des actions pro bono, visant à offrir une assistance juridique gratuite aux personnes vulnérables.<br/><br/>
+            Si vous souhaitez en savoir plus ou solliciter une consultation gratuite :
+          </p>
+          <a href="mailto:probono@sprauer.fr?subject=Demande Pro Bono" class="email-link">probono@sprauer.fr</a>
+        </div>
+        <div class="split-image">
+          <img src="https://front.sprauer.fr/wp-content/uploads/2025/08/pro-bono-image.webp" alt="Consultations Pro Bono" />
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* HERO */
+  .hero {
+    padding: 80px 0;
+    background-color: var(--color-primary);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .hero-content h1 {
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .hero-content h1 span {
+    color: var(--color-accent);
+  }
+  .hero-content p {
+    margin-top: 20px;
+    font-size: 1.1rem;
+  }
+  .hero-image img {
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  /* URGENCES GRID (Grille 4 colonnes) */
+  .urgences {
+	background-color: white;
+  }
+  .urgences-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .card {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  .card h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  /* BOUTONS DANS LA GRILLE */
+  .btn {
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .btn-outline-white { border: 2px solid var(--color-neutral); color: var(--color-neutral); }
+  .btn-outline-blue { border: 2px solid var(--color-primary); color: var(--color-primary); }
+  .btn-outline-dark { border: 2px solid var(--color-primary-dark); color: var(--color-primary-dark); }
+  .btn-outline-gold { border: 2px solid var(--color-accent); color: var(--color-accent); }
+  .btn:hover { opacity: 0.8; transform: translateY(-2px); }
+
+  /* SECTIONS SPLIT (Texte + Image) */
+  .section-padding { padding: 80px 0; }
+  .cabinet, .probono { background-color: var(--color-primary); }
+  .honoraires { background-color: var(--color-neutral); color: var(--color-primary); }
+  
+  .split-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .split-layout.reverse { flex-direction: row-reverse; }
+  .split-text { flex: 1; max-width: 580px; }
+  .split-image { flex: 1; max-width: 480px; }
+  .split-image img { height: 500px; width: 100%; object-fit: cover; }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-title h2 {
+    font-size: 2rem;
+    color: var(--color-accent);
+  }
+  .honoraires .section-title h2 { color: var(--color-primary); }
+  .triangle-icon { color: var(--color-accent); font-size: 0.8rem; transform: rotate(90deg); }
+  .triangle-icon.rotate-down { transform: rotate(180deg); color: var(--color-primary); }
+
+  .features-list {
+    margin: 20px 0;
+    padding-left: 20px;
+  }
+  .features-list li { margin-bottom: 8px; }
+  .email-link {
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  /* RESPONSIVE TABLET & MOBILE */
+  @media (max-width: 991px) {
+    .hero-grid, .split-layout, .split-layout.reverse {
+      flex-direction: column;
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .urgences-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 575px) {
+    .urgences-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

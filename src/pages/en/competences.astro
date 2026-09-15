@@ -1,0 +1,483 @@
+---
+// src/pages/competences.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = "Compétences - Sprauer Avocats Paris";
+const pageDescription = "Découvrez l'ensemble des expertises du cabinet Sprauer Avocats à Paris : droit pénal, droit pénal des affaires et droit des affaires.";
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+// URL de base pour la version anglaise
+const enBaseUrl = `${baseUrl}en/`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="site-main">
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1 class="hero-title">Toutes nos <strong class="hero-title-accent">expertises</strong></h1>
+            <div class="hero-text-wrapper">
+              <p class="hero-text">
+                Spécialisé en droit pénal, droit pénal des affaires et droit des affaires, le cabinet met son expertise au service de vos enjeux juridiques les plus sensibles.
+                <br /><br />
+                Nous vous accompagnons avec rigueur, confidentialité et efficacité dans chaque domaine d’intervention présenté ici.
+              </p>
+            </div>
+          </div>
+          <div class="hero-img-container">
+            <img
+              class="hero-img"
+              src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-matreding-30241270.webp"
+              alt="pexels-matreding-30241270"
+              srcset="https://sprauer.fr/wp-content/uploads/2025/08/pexels-matreding-30241270-300x300.webp 300w, https://sprauer.fr/wp-content/uploads/2025/08/pexels-matreding-30241270-150x150.webp 150w, https://sprauer.fr/wp-content/uploads/2025/08/pexels-matreding-30241270.webp 700w"
+              sizes="(max-width: 700px) 100vw, 700px"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+      <svg class="hero-bg-svg" width="100%" height="100%" viewBox="0 0 296 255" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(1,0,0,1,-946.441,-578.98)">
+          <g>
+            <g transform="matrix(1.22997,0,0,1.22997,-1250.69,-655.61)">
+              <path d="M2016.36,1203.5C2016.98,1204.9 2019.25,1208.48 2026.39,1208.48L2026.39,1210.47L2018.74,1210.47L2018.74,1210.47L1951.36,1210.47L1951.36,1207.35L1956.05,1205.79C1960.42,1204.12 1963.07,1201.78 1964.01,1198.76C1964.95,1195.74 1964.79,1192.15 1963.54,1187.99L1915.45,1039.66L1895.33,1097.94C1893.72,1096.56 1892.06,1095.17 1890.33,1093.76L1912.22,1030.95L1912.71,1029.44L1921.64,1003.76L1921.7,1003.76L1948.24,1003.76L1991.35,1130.12L2016.36,1203.5Z" style="fill:white;"></path>
+            </g>
+            <g transform="matrix(1.22997,0,0,1.22997,-1250.69,-655.61)">
+              <path d="M1853.64,1152.17C1853.57,1152.03 1853.51,1151.89 1853.44,1151.75C1850.23,1145.2 1844.17,1138.04 1835.28,1130.27L1824.8,1121.87C1810.15,1110.08 1799.42,1098.15 1792.62,1086.07C1785.81,1074 1784.53,1060.04 1788.77,1044.2C1791.83,1032.8 1797.41,1023.74 1805.53,1017.01C1813.65,1010.28 1823.57,1006.11 1835.29,1004.49C1840.35,1003.79 1845.64,1003.59 1851.15,1003.9C1839.88,1008.82 1830.87,1018.63 1827.44,1031.43C1824.55,1042.2 1826.15,1053.14 1831.1,1062.23C1834.78,1069.28 1840.88,1076.34 1849.38,1083.43L1861.16,1092.79C1877.53,1105.88 1888.55,1118.09 1894.2,1129.44C1899.86,1140.79 1900.74,1153.71 1896.86,1168.2C1892.31,1185.2 1882.17,1197.34 1866.45,1204.62C1855.98,1209.47 1843.77,1211.3 1829.81,1210.12C1842.46,1205.71 1852.77,1195.32 1856.49,1181.43C1859.22,1171.26 1857.95,1160.95 1853.64,1152.17Z" style="fill:white;"></path>
+            </g>
+            <g transform="matrix(1.22997,0,0,1.22997,-1237.25,-655.426)">
+              <path d="M1786.28,1210.34L1786.3,1187.75L1809.66,1210.32L1786.28,1210.34Z" style="fill:white;"></path>
+            </g>
+            <g transform="matrix(-1.22997,0,0,-1.22997,3263.48,2067.66)">
+              <path d="M1786.28,1210.34L1786.3,1187.75L1809.66,1210.32L1786.28,1210.34Z" style="fill:white;"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </section>
+
+    <!-- Section Droit Pénal -->
+    <section class="section-penal" id="section-droit-penal">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title text-neutral">Droit pénal</h2>
+        </div>
+        <div class="grid-layout">
+          <div class="card card-penal-1">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-alex-qian-1180283-2325886.webp" alt="Plainte classée sans suite" loading="lazy" />
+            <div class="card-content">
+              <h3 class="card-title text-neutral">Plainte classée sans suite</h3>
+              <a class="card-btn btn-neutral" href={`${enBaseUrl}competences/plainte-classee-sans-suite/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-2">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-karatara-278139-931317.webp" alt="Mise en examen" loading="lazy" />
+            <div class="card-content">
+              <h3 class="card-title text-neutral">Mise en examen</h3>
+              <a class="card-btn btn-neutral" href={`${enBaseUrl}competences/mise-en-examen/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-3">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-ekaterina-bolovtsova-6077123.webp" alt="Comparution immédiate" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Comparution immédiate</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/comparution-immediate/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-4">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-fred-18978472.webp" alt="Comparution sur reconnaissance préalable" height="400" />
+            <div class="card-content">
+              <h3 class="card-title text-white">Comparution sur reconnaissance préalable de culpabilité</h3>
+              <a class="card-btn btn-neutral" href={`${enBaseUrl}competences/crpc/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-5">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Garde à vue" loading="lazy" />
+            <div class="card-content text-primary">
+              <h1 class="card-title-lg">Garde à vue</h1>
+              <a class="card-btn" href={`${enBaseUrl}competences/police-custody/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-6">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-scarlett-boute-144979497-11679719.webp" alt="Effacement TAJ & B2" loading="lazy" />
+            <div class="card-content text-accent">
+              <h3 class="card-title">Effacement TAJ &amp; B2</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/effacement-taj-b2/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-7">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-azamat-hatypov-97167739-31612532.webp" alt="Garde à vue" loading="lazy" />
+            <div class="card-content">
+              <h1 class="card-title text-white">Garde à vue</h1>
+              <a class="card-btn btn-white" href={`${enBaseUrl}competences/police-custody/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-8">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tattoodonor-tattoodonor-1160289080-25942440.webp" alt="Détention provisoire" loading="lazy" />
+            <div class="card-content">
+              <h1 class="card-title">Détention provisoire</h1>
+              <a class="card-btn btn-primary" href={`${enBaseUrl}competences/detention-provisoire/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-penal-9">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-francois-hanscotte-3537774-5292296-1.webp" alt="Garde à vue" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Garde à vue</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/police-custody/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Droit Pénal des Affaires -->
+    <section class="section-affaires-penal" id="section-droit-penal-des-affaires">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title text-white">Droit pénal des affaires</h2>
+        </div>
+        <div class="grid-layout">
+          <div class="card card-affaires-p-1">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-claudio-mota-105200226-9999874.webp" alt="Compliance" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Compliance</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/compliance/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-2">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tom-pursey-3025008-4693103.webp" alt="Pratiques commerciale trompeuse" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Pratiques commerciale trompeuse</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/pratiques-commerciales-trompeuses/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-3">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-lucaspcarlini-15097854.webp" alt="Escroquerie et blanchiment" loading="lazy" />
+            <div class="card-content">
+              <h3 class="card-title text-extralight">Escroquerie et blanchiment</h3>
+              <a class="card-btn btn-blue" href={`${enBaseUrl}competences/escroquerie-et-blanchiment/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-4">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-lindseygarrett-13987195.webp" alt="Responsabilité pénale" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Responsabilité pénale et ordinale des experts comptables</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/responsabilite-penale-experts-comptables/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-5">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Garde à vue" loading="lazy" />
+            <div class="card-content text-primary">
+              <h1 class="card-title-lg">Garde à vue</h1>
+              <a class="card-btn" href={`${enBaseUrl}competences/police-custody/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-6">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-radubradu-395822838-16292110.webp" alt="Abus de biens sociaux" loading="lazy" />
+            <div class="card-content text-accent">
+              <h3 class="card-title">Abus de biens sociaux</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/abus-de-biens-sociaux/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-7">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-wondererphotograph-2564066.webp" alt="Fraude et optimisation fiscale" loading="lazy" />
+            <div class="card-content">
+              <h1 class="card-title text-dark">Fraude et optimisation fiscale</h1>
+              <a class="card-btn btn-primary" href={`${enBaseUrl}competences/fraude-et-optimisation-fiscale/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-8">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-mel-jlt-1582232815-27625129.webp" alt="Responsabilité pénale" loading="lazy" />
+            <div class="card-content">
+              <h1 class="card-title">Responsabilité pénale et ordinale des commissaires aux comptes</h1>
+              <a class="card-btn" href={`${enBaseUrl}competences/responsabilite-penale-commissaires-aux-comptes/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-p-9">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tbd-traveller-2149583744-30718760.webp" alt="Responsabilité pénale du dirigeant" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Responsabilité pénale du dirigeant</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/responsabilite-penale-du-dirigeant/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Droit des Affaires -->
+    <section class="section-affaires" id="section-droit-des-affaires">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title text-neutral">Droit des affaires</h2>
+        </div>
+        <div class="grid-layout">
+          <div class="card card-affaires-1">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-lomarie-loreine-aipar-2148255682-31583577.webp" alt="Droit des sociétés" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Droit des sociétés</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/droit-des-societes/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-2">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-jeffrey-czum-254391-2733955.webp" alt="Contrats commerciaux" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Contrats commerciaux</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/contrats-commerciaux/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-3">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-celine-3776818-15190885.webp" alt="Contentieux commercial" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Contentieux commercial</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/contentieux-commercial/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-4">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-zacharie-elbaz-1911751498-31589387.webp" alt="Entreprises en difficulté" loading="lazy" />
+            <div class="card-content">
+              <h3 class="card-title text-extralight">Entreprises en difficulté</h3>
+              <a class="card-btn btn-neutral" href={`${enBaseUrl}competences/entreprises-en-difficulte/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-5">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Baux commerciaux" loading="lazy" />
+            <div class="card-content text-primary">
+              <h1 class="card-title-lg">Baux commerciaux</h1>
+              <a class="card-btn" href={`${enBaseUrl}competences/baux-commerciaux/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-6">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-emily-252615-768125.webp" alt="Concurrence déloyale" loading="lazy" />
+            <div class="card-content text-accent">
+              <h3 class="card-title">Concurrence déloyale</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/concurrence-deloyale/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-7">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-maxavans-5101782.webp" alt="Recouvrement de créances" loading="lazy" />
+            <div class="card-content text-white">
+              <h1 class="card-title">Recouvrement de créances</h1>
+              <a class="card-btn" href={`${enBaseUrl}competences/recouvrement-creances/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-8">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-jan-van-der-wolf-11680885-29891328.webp" alt="Cession de fonds de commerce" loading="lazy" />
+            <div class="card-content text-primary">
+              <h1 class="card-title">Cession de fonds de commerce</h1>
+              <a class="card-btn" href={`${enBaseUrl}competences/cession-fonds-de-commerce/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+          <div class="card card-affaires-9">
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-bingqian-li-230971044-31589565.webp" alt="Négociation contractuelle" loading="lazy" />
+            <div class="card-content text-primary">
+              <h3 class="card-title">Négociation contractuelle</h3>
+              <a class="card-btn" href={`${enBaseUrl}competences/negociation-contractuelle/`}><span>En savoir plus</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  /* Header */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: var(--color-primary);
+    z-index: 100;
+  }
+  .header-container { max-width: 1216px; margin: 0 auto; padding: 8px 20px; }
+  .header-inner { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+  .logo-wrapper { width: 50%; display: flex; align-items: center; }
+  .logo-img { height: 55px; width: auto; }
+  .nav-menu { display: flex; justify-content: flex-end; align-items: center; width: 100%; }
+  .nav-list { display: flex; gap: 40px; list-style: none; margin: 0; padding: 0; }
+  .nav-link { color: #fff; font-size: 14px; text-transform: uppercase; text-decoration: none; font-family: var(--font-main); }
+  .nav-link.active { color: var(--color-accent); font-weight: 500; }
+
+  /* Hero */
+  .hero-section {
+    position: relative;
+    z-index: 1;
+    background-color: var(--color-primary);
+    overflow: hidden;
+    padding: 100px 0;
+    margin-top: 23px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(75px, 1fr);
+    column-gap: 40px;
+    row-gap: 40px;
+    align-items: center;
+  }
+  .hero-content { display: flex; flex-direction: column; row-gap: 40px; }
+  .hero-title { font-size: 42px; font-weight: 600; text-transform: uppercase; color: var(--color-neutral); font-family: var(--font-main); }
+  .hero-title-accent { color: var(--color-accent); font-weight: 600; }
+  .hero-text-wrapper { margin-top: 20px; }
+  .hero-text { font-size: 18px; line-height: 1.5em; color: #fff; font-family: var(--font-main); }
+  .hero-img-container { overflow: hidden; border-radius: 8px; width: 100%; }
+  .hero-img { max-width: 100%; height: auto; display: block; }
+  .hero-bg-svg { position: absolute; width: 100%; height: 150%; opacity: 0.07; z-index: -100; inset: 5% auto auto 0%; }
+
+  /* Base Sections */
+  #section-droit-penal h2 { color: black; }
+  .section-penal { position: relative; z-index: 1; background-color: white; padding: 100px 0; }
+  .section-affaires-penal { position: relative; z-index: 1; background-color: var(--color-primary-light); padding: 100px 0; }
+  .section-affaires { position: relative; z-index: 1; background-color: var(--color-primary); padding: 100px 0; }
+
+  .section-header { margin-bottom: 60px; }
+  .section-title { font-size: 32px; font-weight: 400; line-height: 1.2em; font-family: var(--font-main); margin: 0; }
+
+  /* Grid Layout Global */
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+    grid-template-rows: minmax(75px,1fr) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto) minmax(75px, auto);
+  }
+
+  .card { display: flex; padding: 0; color: var(--color-primary); }
+  .card-img { width: auto; height: auto; object-fit: cover; }
+  .card-content { text-align: center; padding: 10px; width: 100%; flex-grow: 1; align-content: center; }
+  .card-title { font-family: var(--font-main); font-weight: 400; font-size: 1.15rem; margin: 10px; }
+  .card-title-lg { font-family: var(--font-main); font-weight: 400; font-size: 1.25rem; margin: 10px; }
+  .card-btn { display: inline-block; border-radius: 50px; outline: 2px solid currentColor; font-weight: 400; text-decoration: none; padding: 5px 10px; margin-bottom: 15px; }
+
+  /* SECTION 1 : DROIT PENAL CARDS */
+  .card-penal-1 { grid-row-start: 1; grid-column-start: 2; grid-row-end: 6; grid-column-end: 3; background-color: var(--color-primary); flex-direction: column-reverse; }
+  .card-penal-2 { grid-row-start: 2; grid-column-start: 3; grid-row-end: 7; grid-column-end: 4; background-color: var(--color-primary-light); flex-direction: column; }
+  .card-penal-3 { grid-row-start: 6; grid-column-start: 2; grid-row-end: 11; grid-column-end: 3; background-color: var(--color-primary-extralight); flex-direction: column-reverse; }
+  .card-penal-4 { grid-row-start: 7; grid-column-start: 1; grid-row-end: 12; grid-column-end: 2; background-color: var(--color-primary); flex-direction: column; }
+  .card-penal-5 { grid-row-start: 2; grid-column-start: 1; grid-row-end: 7; grid-column-end: 2; background-color: var(--color-accent); flex-direction: column; }
+  .card-penal-6 { grid-row-start: 1; grid-column-start: 4; grid-row-end: 6; grid-column-end: 5; background-color: var(--color-primary); flex-direction: column-reverse; }
+  .card-penal-7 { grid-row-start: 6; grid-column-start: 4; grid-row-end: 11; grid-column-end: 5; background-color: var(--color-primary-dark); flex-direction: column-reverse; }
+  .card-penal-8 { grid-row-start: 7; grid-column-start: 3; grid-row-end: 12; grid-column-end: 4; background-color: var(--color-accent); flex-direction: column; }
+  .card-penal-9 { grid-row-start: 2; grid-column-start: 1; grid-row-end: 7; grid-column-end: 2; background-color: var(--color-accent); flex-direction: column; }
+
+  /* SECTION 2 : DROIT PENAL DES AFFAIRES CARDS */
+  .card-affaires-p-1 { grid-row-start: 1; grid-column-start: 2; grid-row-end: 6; grid-column-end: 3; background-color: var(--color-accent); flex-direction: column-reverse; }
+  .card-affaires-p-2 { grid-row-start: 2; grid-column-start: 3; grid-row-end: 7; grid-column-end: 4; background-color: var(--color-neutral); flex-direction: column; }
+  .card-affaires-p-3 { grid-row-start: 6; grid-column-start: 2; grid-row-end: 11; grid-column-end: 3; background-color: var(--color-primary-dark); flex-direction: column-reverse; }
+  .card-affaires-p-4 { grid-row-start: 7; grid-column-start: 1; grid-row-end: 12; grid-column-end: 2; background-color: var(--color-neutral); flex-direction: column; }
+  .card-affaires-p-5 { grid-row-start: 2; grid-column-start: 1; grid-row-end: 7; grid-column-end: 2; background-color: var(--color-accent); flex-direction: column; }
+  .card-affaires-p-6 { grid-row-start: 1; grid-column-start: 4; grid-row-end: 6; grid-column-end: 5; background-color: var(--color-primary); flex-direction: column-reverse; }
+  .card-affaires-p-7 { grid-row-start: 6; grid-column-start: 4; grid-row-end: 11; grid-column-end: 5; background-color: var(--color-primary-extralight); flex-direction: column-reverse; }
+  .card-affaires-p-8 { grid-row-start: 7; grid-column-start: 3; grid-row-end: 12; grid-column-end: 4; background-color: var(--color-accent); flex-direction: column; }
+  .card-affaires-p-9 { grid-row-start: 2; grid-column-start: 1; grid-row-end: 7; grid-column-end: 2; background-color: var(--color-primary-extralight); flex-direction: column; }
+
+  /* SECTION 3 : DROIT DES AFFAIRES CARDS */
+  .card-affaires-1 { grid-row-start: 1; grid-column-start: 2; grid-row-end: 6; grid-column-end: 3; background-color: var(--color-primary-extralight); flex-direction: column-reverse; }
+  .card-affaires-2 { grid-row-start: 2; grid-column-start: 3; grid-row-end: 7; grid-column-end: 4; background-color: var(--color-neutral); flex-direction: column; }
+  .card-affaires-3 { grid-row-start: 6; grid-column-start: 2; grid-row-end: 11; grid-column-end: 3; background-color: var(--color-neutral); flex-direction: column-reverse; }
+  .card-affaires-4 { grid-row-start: 7; grid-column-start: 1; grid-row-end: 12; grid-column-end: 2; background-color: var(--color-primary-dark); flex-direction: column; }
+  .card-affaires-5 { grid-row-start: 2; grid-column-start: 1; grid-row-end: 7; grid-column-end: 2; background-color: var(--color-accent); flex-direction: column; }
+  .card-affaires-6 { grid-row-start: 1; grid-column-start: 4; grid-row-end: 6; grid-column-end: 5; background-color: var(--color-primary-dark); flex-direction: column-reverse; }
+  .card-affaires-7 { grid-row-start: 6; grid-column-start: 4; grid-row-end: 11; grid-column-end: 5; background-color: var(--color-primary-light); flex-direction: column-reverse; }
+  .card-affaires-8 { grid-row-start: 7; grid-column-start: 3; grid-row-end: 12; grid-column-end: 4; background-color: var(--color-accent); flex-direction: column; }
+  .card-affaires-9 { grid-row-start: 2; grid-column-start: 1; grid-row-end: 7; grid-column-end: 2; background-color: var(--color-accent); flex-direction: column; }
+
+  /* Text & Button Color Utilities */
+  .text-primary { color: var(--color-primary); }
+  .text-white { color: #ffffff; }
+  .text-neutral { color: var(--color-neutral); }
+  .text-accent { color: var(--color-accent); }
+  .text-extralight { color: var(--color-primary-extralight); }
+  .text-dark { color: var(--color-primary-dark); }
+
+  .btn-primary { color: var(--color-primary); }
+  .btn-white { color: #ffffff; }
+  .btn-neutral { color: var(--color-neutral); }
+  .btn-blue { color: var(--color-primary-extralight); }
+
+  /* Responsive Mobile / Tablette */
+  @media only screen and (max-width: 991px) {
+    .hero-grid { 
+      grid-template-columns: 1fr; 
+      text-align: center; 
+      justify-items: center; 
+    }
+    .hero-content { 
+      align-items: center; 
+    }
+
+    /* Correction de la hauteur des images de cartes */
+    .card-img { 
+      width: 100%;
+      height: 220px; /* Remplace height: 70% par une hauteur fixe explicite */
+      object-fit: cover; 
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .section-title { font-size: 40px; }
+  }
+
+  @media only screen and (max-width: 575px) {
+    .section-title { font-size: 32px; }
+  }
+
+  /* Responsive Mobile / Tablette */
+  @media only screen and (max-width: 991px) {
+    .hero-grid { 
+      grid-template-columns: 1fr; 
+      text-align: center; 
+      justify-items: center; 
+    }
+    .hero-content { 
+      align-items: center; 
+    }
+  }
+
+  /* Traitement du passage sur 1 colonne pour Mobile (767px et inférieur) */
+  @media only screen and (max-width: 767px) {
+    .section-title { 
+      font-size: 32px; 
+    }
+
+    /* 1. Passer la grille sur 1 seule colonne automatique */
+    .grid-layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      row-gap: 24px;
+    }
+
+    /* 2. Annuler les positions décalées spécifiques à la version Desktop */
+    [class*="card-penal-"],
+    [class*="card-affaires-"] {
+      grid-column: auto / auto !important;
+      grid-row: auto / auto !important;
+    }
+
+    /* 3. Harmoniser le comportement des cartes en empilement vertical */
+    .card {
+      flex-direction: column;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+  }
+
+  @media only screen and (max-width: 575px) {
+    .section-title { 
+      font-size: 28px; 
+    }
+  }
+</style>
