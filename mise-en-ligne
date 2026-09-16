@@ -1,0 +1,77 @@
+La bascule d'un site WordPress vers une architecture Astro SSG (statique) sur o2switch est très simple et garantit des performances maximales.
+
+Voici la procédure étape par étape pour réaliser la mise en ligne sans coupure de service.
+
+---
+
+### 1. Séparer l'administration WordPress du site public
+
+Votre site Astro dépend de l'API WordPress au moment du build. Il faut s'assurer que l'admin WordPress reste accessible sur un sous-domaine (ex: `front.sprauer.fr`).
+
+* **Si WordPress est déjà configuré sur `front.sprauer.fr**` : Vous n'avez rien à modifier côté WordPress.
+* **Si WordPress est actuellement sur la racine `sprauer.fr**` : Déplacez le dossier du site WordPress (ou modifiez le dossier racine dans o2switch cPanel) pour le faire pointer sur le sous-domaine `front.sprauer.fr`.
+
+---
+
+### 2. Générer le build statique Astro
+
+Sur votre machine locale, lancez la commande d'exportation statique :
+
+```bash
+npm run build
+
+```
+
+Astro va interroger l'API WordPress sur `front.sprauer.fr`, récupérer l'ensemble des contenus bilingues et générer un dossier **`dist/`** contenant l'intégralité du site compilé en HTML/CSS/JS.
+
+---
+
+### 3. Déployer les fichiers sur o2switch
+
+1. Connectez-vous à votre **cPanel o2switch** (ou utilisez un client FTP comme FileZilla).
+2. Ouvrez le **Gestionnaire de fichiers** et naviguez vers le dossier racine du domaine principal (`public_html` pour `sprauer.fr`).
+3. **Sauvegardez ou nettoyez** les anciens fichiers WordPress qui se trouvaient sur la racine (en veillant à ne pas supprimer le sous-domaine `front.sprauer.fr` s'il est situé dans un sous-dossier).
+4. Téléversez **tout le contenu situé à l'intérieur du dossier `dist/**` directement dans le dossier `public_html` de `sprauer.fr`.
+
+---
+
+### 4. Configurer le fichier `.htaccess` pour Astro
+
+Pour garantir le bon fonctionnement des URLs sans extension, la redirection HTTPS et la gestion des pages 404, créez ou remplacez le fichier **`.htaccess`** à la racine de `public_html` avec la configuration suivante :
+
+```apache
+# Force le HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Gestion de la page 404
+ErrorDocument 404 /404.html
+
+# Compression GZIP
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+# Cache du navigateur pour les assets statiques
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+</IfModule>
+
+```
+
+---
+
+### 5. Vérifications après mise en ligne
+
+* **Certificat SSL** : Allez dans cPanel > *Let's Encrypt SSL* et vérifiez que le certificat couvre bien `sprauer.fr` et `front.sprauer.fr`.
+* **Redirections & Liens** : Testez la navigation entre le français et l'anglais, ainsi que les formulaires de contact.
+* **Prochains articles** : Lorsque vous publierez un nouvel article sur `front.sprauer.fr`, il suffira de relancer `npm run build` et de renvoyer le dossier `dist/` sur le serveur (ou d'automatiser ce process via un Webhook / GitHub Actions si vous le souhaitez ultérieurement).
