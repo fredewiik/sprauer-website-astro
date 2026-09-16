@@ -46,7 +46,7 @@ const featuredImage = media?.media_details?.sizes?.large?.source_url || media?.s
     <section class="hero">
       <div class="container hero-container">
         <a href={`${enBaseUrl}competences/`} class="back-link">
-          ← Toutes nos expertises
+          ← All our areas of expertise
         </a>
         <h1 class="hero-title" set:html={item.title?.rendered} />
       </div>
@@ -61,15 +61,15 @@ const featuredImage = media?.media_details?.sizes?.large?.source_url || media?.s
           </div>
         )}
         
-        <!-- Injecte le corps d'article WordPress -->
+        <!-- Inject WordPress article body -->
         <article class="competence-content" set:html={item.content?.rendered} />
 
-        <!-- CARTE D'ACTION (CTA) -->
+        <!-- CALL TO ACTION CARD (CTA) -->
         <div class="cta-box">
-          <h3>Besoin d'un accompagnement dédié dans ce domaine ?</h3>
-          <p>Le cabinet Sprauer vous assiste et défend vos intérêts à chaque étape de la procédure.</p>
+          <h3>Need dedicated support in this area?</h3>
+          <p>Sprauer Law Firm assists you and defends your interests at every step of the procedure.</p>
           <a href={`${enBaseUrl}contact/`} class="btn-cta">
-            Prendre rendez-vous avec un avocat
+            Book an appointment with a lawyer
           </a>
         </div>
       </div>

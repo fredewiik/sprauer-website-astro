@@ -1,0 +1,213 @@
+---
+// src/pages/mentions-legales.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+// URL de base pour la version anglaise
+const enBaseUrl = `${baseUrl}en/`;
+
+const pageTitle = "Mentions légales - Sprauer Avocats Paris";
+const pageDescription = "Mentions légales, politique de confidentialité RGPD et informations d'hébergement du cabinet Sprauer Avocats à Paris.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="legal-page">
+    <section class="legal-section">
+      <div class="container container-narrow">
+        <h1>Legal Notice</h1>
+
+        <div class="legal-content">
+          <!-- CONTACT & PUBLISHER -->
+          <article class="legal-block">
+            <h2>Contact</h2>
+            <p>
+              <strong>Sprauer Law Firm</strong><br />
+              43 boulevard Haussmann 75009 Paris<br />
+              Phone: <a href="tel:0140367487">01 40 36 74 87</a><br />
+              Email: <a href="mailto:cabinet@sprauer.fr">cabinet@sprauer.fr</a>
+            </p>
+            <p>
+              SIREN Number: 847 484 003<br />
+              Publication Director: Maître Vincent Sprauer
+            </p>
+          </article>
+
+          <!-- HOSTING -->
+          <article class="legal-block">
+            <h2>Hosting</h2>
+            <p>
+              The Website is hosted on the servers of:<br />
+              <strong>O2Switch</strong><br />
+              Chemin des Pardiaux<br />
+              63000 Clermont-Ferrand
+            </p>
+            <p>
+              Web development: Guillaume Knibiehly / Frédéric Lepy
+            </p>
+          </article>
+
+          <!-- DATA PROTECTION AND PRIVACY -->
+          <article class="legal-block">
+            <h2>Data protection and privacy</h2>
+            <p>
+              The website may collect certain personal information about you. This information is exclusively intended to provide you with information regarding our Firm and its services.
+            </p>
+            <p>
+              This data is processed in accordance with Law No. 78-17 of January 6, 1978 on Information Technology, Files and Freedoms, which entitles you to request access to your personal information at any time at the address above.
+            </p>
+          </article>
+
+          <!-- INTELLECTUAL PROPERTY -->
+          <article class="legal-block">
+            <h2>Intellectual property</h2>
+            <p>
+              The use of the website does not grant you any rights. These rights remain the exclusive property of Sprauer Law Firm.
+            </p>
+            <p>
+              All text, articles, studies, photographs, data, logos, trademarks, and other elements reproduced on the Website are reserved and protected under intellectual property law, including copyright, related rights, and trademark rights.
+            </p>
+            <p>
+              As such, and in accordance with the Intellectual Property Code, only private use within a family circle is authorized, and any other use constitutes an infringement of copyright and/or related rights, punishable under said Code.
+            </p>
+            <p>
+              Consequently, you may not under any circumstances or in any manner reproduce, represent, distribute, commercialize, modify, or license all or part of any element reproduced on the site, or all or part of the site in general, without the prior express consent of Sprauer Law Firm. Any unauthorized use of all or part of the site (hacking, infringement, etc.) may lead to legal prosecution.
+            </p>
+          </article>
+
+          <!-- GDPR -->
+          <article class="legal-block">
+            <h2>GDPR</h2>
+            <p>
+              Pursuant to Articles 13 and 14 of the General Data Protection Regulation (EU 2016/679) and Article 32 of the amended Data Protection Act of January 6, 1978, the Website's Publication Director informs you that:
+            </p>
+            <ul>
+              <li><strong>Data Controller:</strong> Sprauer Law Firm, Data Protection Officer – DPO.</li>
+              <li><strong>Protected Data:</strong> All of your personal data.</li>
+              <li><strong>Purposes:</strong> For the protection of your privacy, within the framework of processing your file, whether it involves legal, judicial, or arbitration matters.</li>
+              <li><strong>Register:</strong> Data is kept in a register maintained by Sprauer Law Firm.</li>
+              <li><strong>Retention Period:</strong> Your data is processed and stored from the moment you make contact, including for the simple preparation of a quote or when making an appointment. It will only be kept for 52 weeks if the appointment is not honored. In all other cases, it will be retained for a period of 5 years from the last legal or judicial action performed by Sprauer Law Firm.</li>
+              <li><strong>Security:</strong> Your data is stored via a protected and secure IT system.</li>
+            </ul>
+            <p>
+              For any questions or requests for rectification, you can send an email to: 
+              <a href="mailto:cabinet@sprauer.fr?subject=GDPR%20Rectification%20Request">cabinet@sprauer.fr</a>
+            </p>
+          </article>
+
+          <!-- MEDIATION -->
+          <article class="legal-block">
+            <h2>Mediation</h2>
+            <p>
+              In accordance with Articles L.612-1 et seq. of the French Consumer Code, in the event of a dispute, you have the option to use the services of the Consumer Mediator at the National Council of Bars (CNB) free of charge, whose contact details are as follows:
+            </p>
+            <p class="address-box">
+              <strong>CNB, Consumer Mediator</strong><br />
+              180 boulevard Haussmann – 75008 Paris
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 80px 0 100px 0;
+    min-height: 80vh;
+  }
+
+  .container-narrow {
+    max-width: 860px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--color-primary-light, #114080);
+    padding-bottom: 20px;
+  }
+
+  .legal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .legal-block h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 15px;
+  }
+
+  .legal-block p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-neutral, #f0ece8);
+    margin-bottom: 15px;
+  }
+
+  .legal-block a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+  }
+
+  .legal-block a:hover {
+    opacity: 0.8;
+  }
+
+  .legal-block ul {
+    margin: 15px 0 20px 20px;
+    padding: 0;
+    list-style-type: disc;
+  }
+
+  .legal-block li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-neutral, #f0ece8);
+    margin-bottom: 10px;
+  }
+
+  .legal-block li strong {
+    color: #ffffff;
+  }
+
+  .address-box {
+    background-color: var(--color-primary-light, #114080);
+    padding: 15px 20px;
+    border-radius: 6px;
+    border-left: 4px solid var(--color-accent);
+    display: inline-block;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 767px) {
+    .legal-page {
+      padding: 50px 0 70px 0;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .legal-block h2 {
+      font-size: 1.25rem;
+    }
+
+    .legal-block p, 
+    .legal-block li {
+      font-size: 0.95rem;
+    }
+  }
+</style>

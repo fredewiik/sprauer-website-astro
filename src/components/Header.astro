@@ -9,28 +9,72 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 // Détection de la langue courante
 const isEn = pathname.startsWith(`${baseUrl}en/`) || pathname === `${baseUrl}en`;
 
-// Génération des URLs cibles pour le sélecteur de langue
-let frPath = '';
-let enPath = '';
+// ---------------------------------------------------------------
+// DICTIONNAIRE DE CORRESPONDANCE DES ROUTES (FR <-> EN)
+// ---------------------------------------------------------------
+// Clé = Chemin relatif FR | Valeur = Chemin relatif EN
+const routesMap: Record<string, string> = {
+  '': 'en/',
+  'competences/': 'en/expertise/',
+  'vos-avocats/': 'en/lawyers/',
+  'parlons-droit/': 'en/insights/',
+  'contact/': 'en/contact/',
+  'mentions-legales/': 'en/legal-notice/',
+};
+
+// Dictionnaire inverse (EN -> FR)
+const inverseRoutesMap = Object.fromEntries(
+  Object.entries(routesMap).map(([fr, en]) => [en, fr])
+);
+
+// Extraire le chemin relatif par rapport au baseUrl
+let currentRelativePath = pathname.startsWith(baseUrl)
+  ? pathname.substring(baseUrl.length)
+  : pathname;
+
+// S'assurer qu'il y a un trailing slash si ce n'est pas la racine
+if (currentRelativePath && !currentRelativePath.endsWith('/')) {
+  currentRelativePath += '/';
+}
+
+let frPath = baseUrl;
+let enPath = `${baseUrl}en/`;
 
 if (isEn) {
   enPath = pathname;
-  // Retire "/en/" pour revenir à la version FR
-  frPath = pathname.replace(`${baseUrl}en/`, baseUrl).replace(`${baseUrl}en`, baseUrl);
+  // Cherche la correspondance FR dans le dictionnaire
+  const matchedFr = inverseRoutesMap[currentRelativePath];
+  if (matchedFr !== undefined) {
+    frPath = `${baseUrl}${matchedFr}`;
+  } else if (currentRelativePath.startsWith('en/expertise/')) {
+    // Fallback pour les sous-pages de compétences : redirige vers la liste des compétences FR
+    frPath = `${baseUrl}competences/`;
+  } else if (currentRelativePath.startsWith('en/insights/')) {
+    // Fallback pour les sous-pages d'articles : redirige vers le blog FR
+    frPath = `${baseUrl}parlons-droit/`;
+  }
 } else {
   frPath = pathname;
-  // Ajoute "/en/" après la baseUrl pour basculer en EN
-  const relativePath = pathname.substring(baseUrl.length);
-  enPath = `${baseUrl}en/${relativePath}`;
+  // Cherche la correspondance EN dans le dictionnaire
+  const matchedEn = routesMap[currentRelativePath];
+  if (matchedEn !== undefined) {
+    enPath = `${baseUrl}${matchedEn}`;
+  } else if (currentRelativePath.startsWith('competences/')) {
+    // Fallback pour les sous-pages de compétences : redirige vers la liste des compétences EN
+    enPath = `${baseUrl}en/expertise/`;
+  } else if (currentRelativePath.startsWith('parlons-droit/')) {
+    // Fallback pour les sous-pages d'articles : redirige vers le blog EN
+    enPath = `${baseUrl}en/insights/`;
+  }
 }
 
-// Menus de navigation FR / EN
+// Menus de navigation
 const navItems = isEn 
   ? [
       { name: 'HOME', path: 'en/' },
-      { name: 'EXPERTISE', path: 'en/competences/' },
-      { name: 'LAWYERS', path: 'en/vos-avocats/' },
-      { name: 'INSIGHTS', path: 'en/parlons-droit/' },
+      { name: 'EXPERTISE', path: 'en/expertise/' },
+      { name: 'LAWYERS', path: 'en/lawyers/' },
+      { name: 'INSIGHTS', path: 'en/insights/' },
       { name: 'CONTACT', path: 'en/contact/' },
     ]
   : [
@@ -153,7 +197,7 @@ const navItems = isEn
     color: var(--color-accent);
   }
 
-  /* Style du Sélecteur de langue */
+  /* Sélecteur de langue */
   .lang-switcher {
     display: flex;
     align-items: center;

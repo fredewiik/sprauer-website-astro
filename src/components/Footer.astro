@@ -1,6 +1,21 @@
 ---
 // src/components/Footer.astro
+const pathname = new URL(Astro.request.url).pathname;
+
+// Trailing slash garanti sur baseUrl
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+
+// Détection de la langue courante
+const isEn = pathname.startsWith(`${baseUrl}en/`) || pathname === `${baseUrl}en`;
+
 const currentYear = new Date().getFullYear();
+
+// URLs et contenus dynamiques
+const homeUrl = isEn ? `${baseUrl}en/` : baseUrl;
+const legalUrl = isEn ? `${baseUrl}en/legal-notice/` : `${baseUrl}mentions-legales/`;
+const emailSubject = isEn ? "Information%20request" : "Demande%20d'info";
 ---
 
 <footer class="footer">
@@ -8,12 +23,14 @@ const currentYear = new Date().getFullYear();
     <!-- Section Coordonnées & Logo -->
     <div class="footer-info">
       <div class="footer-logo">
-        <img 
-          src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp" 
-          alt="Sprauer Avocats Logo" 
-          width="180" 
-          height="50"
-        />
+        <a href={homeUrl}>
+          <img 
+            src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp" 
+            alt="Sprauer Avocats Logo" 
+            width="180" 
+            height="50"
+          />
+        </a>
       </div>
 
       <div class="footer-item">
@@ -38,15 +55,22 @@ const currentYear = new Date().getFullYear();
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
         </svg>
-        <a href="mailto:cabinet@sprauer.fr?subject=Demande%20d'info" class="footer-link">cabinet@sprauer.fr</a>
+        <a href={`mailto:cabinet@sprauer.fr?subject=${emailSubject}`} class="footer-link">cabinet@sprauer.fr</a>
       </div>
     </div>
 
     <!-- Section Copyright & Mentions Légales -->
     <div class="footer-bottom">
-      <p>© {currentYear} Sprauer Avocats. Tous droits réservés.</p>
+      <p>
+        {isEn 
+          ? `© ${currentYear} Sprauer Avocats. All rights reserved.` 
+          : `© ${currentYear} Sprauer Avocats. Tous droits réservés.`
+        }
+      </p>
       <span class="separator">•</span>
-      <a href=`${import.meta.env.BASE_URL}/mentions-legales/` class="legal-link">Mentions légales</a>
+      <a href={legalUrl} class="legal-link">
+        {isEn ? 'Legal notice' : 'Mentions légales'}
+      </a>
     </div>
   </div>
 </footer>

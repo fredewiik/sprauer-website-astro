@@ -8,10 +8,16 @@ export async function getStaticPaths({ paginate }: any) {
   try {
     const res = await fetch('https://front.sprauer.fr/wp-json/wp/v2/posts?_embed&per_page=100');
     if (res.ok) {
-      allPosts = await res.json();
+      const data = await res.json();
+      
+      // Filtre FR : exclut tout article ayant "/en/" dans son URL canonique ou son lien
+      allPosts = data.filter((post: any) => {
+        const canonicalUrl = post.yoast_head_json?.canonical || post.link || '';
+        return !canonicalUrl.includes('/en/');
+      });
     }
   } catch (error) {
-    console.error("Erreur lors de la récupération des articles WordPress :", error);
+    console.error("Erreur lors de la récupération des articles FR :", error);
   }
 
   // Génère automatiquement les pages statiques (8 articles par page)

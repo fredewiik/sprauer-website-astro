@@ -73,8 +73,8 @@ const featuredImage = getFeaturedImage(post);
     <!-- HERO ARTICLE -->
     <header class="article-hero">
       <div class="container hero-container">
-        <a href=`${enBaseUrl}/parlons-droit/` class="back-link">
-          ← Retour aux articles
+        <a href=`${enBaseUrl}insights/` class="back-link">
+          ← Back to articles
         </a>
         <div class="article-meta">
           <span class="article-date">{formatDate(post.date)}</span>
@@ -83,7 +83,7 @@ const featuredImage = getFeaturedImage(post);
       </div>
     </header>
 
-    <!-- CONTENU ARTICLE -->
+    <!-- ARTICLE CONTENT -->
     <article class="article-wrapper">
       <div class="container container-narrow">
         {featuredImage && (
@@ -99,18 +99,18 @@ const featuredImage = getFeaturedImage(post);
 
         <div class="article-body" set:html={post.content.rendered} />
 
-        <!-- CARTE D'ACTION (CTA) -->
+        <!-- CALL TO ACTION CARD (CTA) -->
         <div class="cta-box">
-          <h3>Vous faites face à une situation similaire ?</h3>
-          <p>Le cabinet Sprauer vous assiste et défend vos intérêts à chaque étape de la procédure.</p>
+          <h3>Facing a similar situation?</h3>
+          <p>Sprauer Law Firm assists you and defends your interests at every step of the procedure.</p>
           <a href={`${enBaseUrl}contact/`} class="btn-cta">
-            Prendre rendez-vous avec un avocat
+            Book an appointment with a lawyer
           </a>
         </div>
 
         <div class="article-footer-nav">
-          <a href=`${enBaseUrl}/parlons-droit/` class="btn-back">
-            ← Tous les articles
+          <a href=`${enBaseUrl}insights/` class="btn-back">
+            ← All articles
           </a>
         </div>
       </div>
