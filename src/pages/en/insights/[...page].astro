@@ -42,18 +42,26 @@ const pageTitle = page.currentPage > 1
 const pageDescription = "Clear and accessible insights into essential legal concepts, written by the lawyers of Sprauer Law Firm in Paris.";
 
 // Extraction des images WordPress
-function getFeaturedImage(post: any) {
-  const fallback = "https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp";
-  const media = post._embedded?.['wp:featuredmedia']?.[0];
-  if (!media) return fallback;
+function getFeaturedImage(post: any): string {
+  const fallback = "https://sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp";
 
-  return (
-    media.media_details?.sizes?.medium_large?.source_url ||
-    media.media_details?.sizes?.large?.source_url ||
-    media.media_details?.sizes?.full?.source_url ||
-    media.source_url ||
-    fallback
-  );
+  let url = "";
+
+  // 1. Priorité à l'image Yoast SEO (qui utilise déjà le bon domaine sprauer.fr)
+  const ogImageUrl = post.yoast_head_json?.og_image?.[0]?.url;
+  
+  // 2. Extraction depuis _embedded en secours
+  const media = post._embedded?.['wp:featuredmedia']?.[0];
+  const embeddedUrl = 
+    media?.media_details?.sizes?.medium_large?.source_url ||
+    media?.media_details?.sizes?.large?.source_url ||
+    media?.source_url;
+
+  // 3. Choix de l'URL la plus pertinente
+  url = ogImageUrl || embeddedUrl || fallback;
+
+  // 4. Remplacement systématique du sous-domaine front.sprauer.fr par sprauer.fr
+  return url.replace('https://front.sprauer.fr', 'https://sprauer.fr');
 }
 
 // Formatage de la date (DD.MM.YYYY)
@@ -69,6 +77,26 @@ function formatDate(dateString: string) {
 function getPageUrl(pageNum: number) {
   return pageNum === 1 ? `${enBaseUrl}insights/` : `${enBaseUrl}insights/${pageNum}/`;
 }
+
+// ---------------------------------------------------------------
+// INDEX DE RECHERCHE CLIENT-SIDE (Généré au build)
+// ---------------------------------------------------------------
+const resAll = await fetch('https://front.sprauer.fr/wp-json/wp/v2/posts?_embed&per_page=100');
+const rawAll = resAll.ok ? await resAll.json() : [];
+const searchIndex = rawAll
+  .filter((post: any) => (post.yoast_head_json?.canonical || post.link || '').includes('/en/'))
+  .map((post: any) => {
+    const d = new Date(post.date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return {
+      title: post.title?.rendered || '',
+      date: formatDate(post.date),
+      url: `${baseUrl}${year}/${month}/${day}/${post.slug}/`,
+      image: getFeaturedImage(post)
+    };
+  });
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -97,69 +125,156 @@ function getPageUrl(pageNum: number) {
     <!-- ARTICLES SECTION -->
     <section class="articles-section">
       <div class="container">
-        {posts.length > 0 ? (
-          <>
-            <div class="articles-grid">
-              {posts.map((post: any) => {
-                const imageUrl = getFeaturedImage(post);
-                const title = post.title?.rendered || "";
-                const d = new Date(post.date);
-                const year = d.getFullYear();
-                const month = String(d.getMonth() + 1).padStart(2, '0');
-                const day = String(d.getDate()).padStart(2, '0');
-                
-                // URL préfixée avec enBaseUrl
-                const articleUrl = `${enBaseUrl}${year}/${month}/${day}/${post.slug}/`;
 
-                return (
-                  <article class="article-card">
-                    <div class="article-image">
-                      <img 
-                        src={imageUrl} 
-                        alt={post.title?.rendered || "Sprauer Article"} 
-                        loading="lazy" 
-                        onerror="this.onerror=null;this.src='https://front.sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp';"
-                      />
-                    </div>
-                    <div class="article-content">
-                      <p class="article-date">{formatDate(post.date)}</p>
-                      <h2 class="article-title" set:html={title} />
-                      <div class="article-btn-wrapper">
-                        <a href={articleUrl} class="btn-read-more">
-                          Read more
-                        </a>
+      <!-- BARRE DE RECHERCHE -->
+        <div class="search-wrapper">
+          <div class="search-box">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search an article..." 
+              aria-label="Search an article"
+            />
+            <button id="search-clear" class="search-clear" aria-label="Delete research">&times;</button>
+          </div>
+        </div>
+
+        <!-- GRILLE DE RECHERCHE (Masquée par défaut) -->
+        <div id="search-grid" class="articles-grid" style="display: none;"></div>
+        <p id="search-no-results" class="no-posts" style="display: none;">No articles match your search.</p>
+
+      <!-- GRILLE STATIQUE PAR DÉFAUT -->
+        <div id="default-content">
+          {posts.length > 0 ? (
+            <>
+              <div class="articles-grid">
+                {posts.map((post: any) => {
+                  const imageUrl = getFeaturedImage(post);
+                  const title = post.title?.rendered || "";
+                  const d = new Date(post.date);
+                  const year = d.getFullYear();
+                  const month = String(d.getMonth() + 1).padStart(2, '0');
+                  const day = String(d.getDate()).padStart(2, '0');
+                  
+                  // URL préfixée avec enBaseUrl
+                  const articleUrl = `${enBaseUrl}${year}/${month}/${day}/${post.slug}/`;
+
+                  return (
+                    <article class="article-card">
+                      <div class="article-image">
+                        <img 
+                          src={imageUrl} 
+                          alt={title} 
+                          loading="lazy" 
+                          onerror="this.onerror=null;this.src='https://sprauer.fr/wp-content/uploads/2025/08/bibliotheque.webp';"
+                        />
                       </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
+                      <div class="article-content">
+                        <p class="article-date">{formatDate(post.date)}</p>
+                        <h2 class="article-title" set:html={title} />
+                        <div class="article-btn-wrapper">
+                          <a href={articleUrl} class="btn-read-more">
+                            Read more
+                          </a>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
 
-            <!-- STATIC PAGINATION -->
-            {page.lastPage > 1 && (
-              <nav class="pagination-container" aria-label="Articles pagination">
-                <ul class="pagination">
-                  {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
-                    <li>
-                      <a 
-                        href={getPageUrl(pageNum)} 
-                        class={`pagination-item ${pageNum === page.currentPage ? 'active' : ''}`}
-                      >
-                        {pageNum}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
-          </>
-        ) : (
-          <p class="no-posts">No articles found.</p>
-        )}
+              <!-- STATIC PAGINATION -->
+              {page.lastPage > 1 && (
+                <nav class="pagination-container" aria-label="Articles pagination">
+                  <ul class="pagination">
+                    {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
+                      <li>
+                        <a 
+                          href={getPageUrl(pageNum)} 
+                          class={`pagination-item ${pageNum === page.currentPage ? 'active' : ''}`}
+                        >
+                          {pageNum}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+            </>
+          ) : (
+            <p class="no-posts">No articles found.</p>
+          )}
+        </div>
       </div>
     </section>
   </main>
 </BaseLayout>
+
+<script is:inline define:vars={{ searchIndex }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('search-input');
+    const clearBtn = document.getElementById('search-clear');
+    const defaultContent = document.getElementById('default-content');
+    const searchGrid = document.getElementById('search-grid');
+    const noResults = document.getElementById('search-no-results');
+
+    if (!input || !searchGrid || !defaultContent) return;
+
+    input.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+
+      if (query.length > 0) {
+        clearBtn.style.display = 'block';
+        defaultContent.style.display = 'none';
+        
+        // Filtre dans l'index complet
+        const results = searchIndex.filter(item => 
+          item.title.toLowerCase().includes(query)
+        );
+
+        if (results.length > 0) {
+          searchGrid.style.display = 'grid';
+          noResults.style.display = 'none';
+
+          // Génération dynamique des cartes filtrées
+          searchGrid.innerHTML = results.map(item => `
+            <article class="article-card">
+              <div class="article-image">
+                <img src="${item.image}" alt="${item.title}" loading="lazy" />
+              </div>
+              <div class="article-content">
+                <p class="article-date">${item.date}</p>
+                <h2 class="article-title">${item.title}</h2>
+                <div class="article-btn-wrapper">
+                  <a href="${item.url}" class="btn-read-more">Read more</a>
+                </div>
+              </div>
+            </article>
+          `).join('');
+        } else {
+          searchGrid.style.display = 'none';
+          noResults.style.display = 'block';
+        }
+      } else {
+        // Réinitialisation si le champ est vide
+        clearBtn.style.display = 'none';
+        searchGrid.style.display = 'none';
+        noResults.style.display = 'none';
+        defaultContent.style.display = 'block';
+      }
+    });
+
+    clearBtn?.addEventListener('click', () => {
+      input.value = '';
+      input.dispatchEvent(new Event('input'));
+      input.focus();
+    });
+  });
+</script>
 
 <style>
   /* HERO SECTION */
@@ -201,19 +316,123 @@ function getPageUrl(pageNum: number) {
   }
 
   /* ARTICLES SECTION */
-  .articles-section {
+  :global(.articles-section) {
     padding: 70px 0;
     background-color: #ffffff;
   }
 
-  .articles-grid {
+  :global(.articles-grid) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
 
+  /* SEARCH BAR STYLES */
+.search-wrapper {
+  max-width: 580px;
+  margin: 0 auto 50px auto;
+  padding: 0 15px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Icône Loupe */
+.search-icon {
+  position: absolute;
+  left: 20px;
+  color: var(--color-primary-dark);
+  opacity: 0.5;
+  transition: opacity 0.25s ease, color 0.25s ease;
+  pointer-events: none;
+}
+
+/* Champ de saisie */
+.search-box input {
+  width: 100%;
+  padding: 16px 48px 16px 54px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 400;
+  color: var(--color-primary-dark);
+  background-color: #ffffff;
+  border: 1.5px solid rgba(10, 36, 74, 0.15);
+  border-radius: 50px;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-box input::placeholder {
+  color: var(--color-primary-dark);
+  opacity: 0.45;
+  font-weight: 400;
+}
+
+/* États Survol et Focus */
+.search-box input:hover {
+  border-color: rgba(10, 36, 74, 0.35);
+}
+
+.search-box input:focus {
+  border-color: var(--color-primary-dark);
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(10, 36, 74, 0.08), 0 0 0 3px rgba(10, 36, 74, 0.05);
+}
+
+.search-box:focus-within .search-icon {
+  opacity: 1;
+  color: var(--color-accent);
+}
+
+/* Bouton Effacer (Croix) */
+.search-clear {
+  position: absolute;
+  right: 16px;
+  display: none;
+  width: 26px;
+  height: 26px;
+  background-color: var(--color-primary-extralight);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--color-primary-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-clear:hover {
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Adaptations Mobile */
+@media (max-width: 575px) {
+  .search-wrapper {
+    margin-bottom: 35px;
+  }
+  
+  .search-box input {
+    padding: 14px 42px 14px 46px;
+    font-size: 0.9rem;
+  }
+
+  .search-icon {
+    left: 16px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
   /* CARTE ARTICLE */
-  .article-card {
+  :global(.article-card) {
+    color: var(--color-primary-dark);
     background-color: var(--color-primary-extralight);
     border-radius: 8px;
     overflow: hidden;
@@ -223,25 +442,25 @@ function getPageUrl(pageNum: number) {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .article-card:hover {
+  :global(.article-card:hover) {
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.08);
   }
 
-  .article-image {
+  :global(.article-image) {
     height: 230px;
     width: 100%;
     overflow: hidden;
     background-color: #e0e0e0;
   }
 
-  .article-image img {
+  :global(.article-image img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  .article-content {
+  :global(.article-content) {
     padding: 16px 16px 24px 16px;
     display: flex;
     flex-direction: column;
@@ -249,14 +468,14 @@ function getPageUrl(pageNum: number) {
     flex: 1;
   }
 
-  .article-date {
+  :global(.article-date) {
     font-size: 0.875rem;
     font-weight: 400;
     color: var(--color-primary-dark);
     margin: 0 0 8px 0;
   }
 
-  .article-title {
+  :global(.article-title) {
     font-size: 1.05rem;
     font-weight: 600;
     line-height: 1.35;
@@ -268,7 +487,7 @@ function getPageUrl(pageNum: number) {
     overflow: hidden;
   }
 
-  .article-btn-wrapper {
+  :global(.article-btn-wrapper) {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -276,7 +495,7 @@ function getPageUrl(pageNum: number) {
     padding-top: 15px;
   }
 
-  .btn-read-more {
+  :global(.btn-read-more) {
     display: inline-block;
     color: var(--color-primary-dark);
     font-size: 1rem;
@@ -288,7 +507,7 @@ function getPageUrl(pageNum: number) {
     transition: all 0.2s ease;
   }
 
-  .btn-read-more:hover {
+  :global(.btn-read-more:hover) {
     background-color: var(--color-primary-dark);
     color: #ffffff;
   }
@@ -338,7 +557,7 @@ function getPageUrl(pageNum: number) {
 
   /* RESPONSIVE DESIGN */
   @media (max-width: 1100px) {
-    .articles-grid {
+    :global(.articles-grid) {
       grid-template-columns: repeat(3, 1fr);
     }
   }
@@ -349,7 +568,7 @@ function getPageUrl(pageNum: number) {
       text-align: center;
     }
 
-    .articles-grid {
+    :global(.articles-grid) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
@@ -359,11 +578,11 @@ function getPageUrl(pageNum: number) {
       padding: 50px 0;
     }
 
-    .articles-grid {
+    :global(.articles-grid) {
       grid-template-columns: 1fr;
     }
 
-    .article-card {
+    :global(.article-card) {
       height: auto;
       min-height: 460px;
     }
