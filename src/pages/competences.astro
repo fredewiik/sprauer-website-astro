@@ -62,6 +62,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     <section class="section-penal" id="section-droit-penal">
       <div class="container">
         <div class="section-header">
+          <span class="triangle-icon" data-astro-cid-lo4sia4k="">▲</span>
           <h2 class="section-title text-neutral">Droit pénal</h2>
         </div>
         <div class="grid-layout">
@@ -136,6 +137,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     <section class="section-affaires-penal" id="section-droit-penal-des-affaires">
       <div class="container">
         <div class="section-header">
+          <span class="triangle-icon" data-astro-cid-lo4sia4k="">▲</span>
           <h2 class="section-title text-white">Droit pénal des affaires</h2>
         </div>
         <div class="grid-layout">
@@ -210,6 +212,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
     <section class="section-affaires" id="section-droit-des-affaires">
       <div class="container">
         <div class="section-header">
+          <span class="triangle-icon" data-astro-cid-lo4sia4k="">▲</span>
           <h2 class="section-title text-neutral">Droit des affaires</h2>
         </div>
         <div class="grid-layout">
@@ -283,6 +286,12 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
 </BaseLayout>
 
 <style is:global>
+  .triangle-icon {
+    color: var(--color-accent);
+    font-size: .8rem;
+    transform: rotate(90deg);
+  }
+
   /* Header */
   .site-header {
     position: fixed;
@@ -326,7 +335,6 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   .hero-text { font-size: 18px; line-height: 1.5em; color: #fff; font-family: var(--font-main); }
   .hero-img-container { overflow: hidden; border-radius: 8px; width: 100%; }
   .hero-img { max-width: 100%; height: auto; display: block; }
-  .hero-bg-svg { position: absolute; width: 100%; height: 150%; opacity: 0.07; z-index: -100; inset: 5% auto auto 0%; }
 
   /* Base Sections */
   #section-droit-penal h2 { color: black; }
@@ -334,7 +342,11 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   .section-affaires-penal { position: relative; z-index: 1; background-color: var(--color-primary-light); padding: 100px 0; }
   .section-affaires { position: relative; z-index: 1; background-color: var(--color-primary); padding: 100px 0; }
 
-  .section-header { margin-bottom: 60px; }
+  .section-header { 
+    display: flex;
+    gap: 24px;
+    margin-bottom: 60px;
+  }
   .section-title { font-size: 32px; font-weight: 400; line-height: 1.2em; font-family: var(--font-main); margin: 0; }
 
   /* Grid Layout Global */
@@ -444,9 +456,9 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
       font-size: 32px; 
     }
 
-    /* 1. Passer la grille sur 1 seule colonne automatique */
+    /* 1. Passer la grille sur 2 colonnes */
     .grid-layout {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-template-rows: auto;
       row-gap: 24px;
     }

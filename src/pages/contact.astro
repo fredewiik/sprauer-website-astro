@@ -143,23 +143,29 @@ const pageDescription = "Contactez le cabinet Sprauer Avocats à Paris. Formulai
             <!-- Transports -->
             <div class="info-item">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon"><circle cx="8.5" cy="14.5" r="1.5"/><circle cx="15.5" cy="14.5" r="1.5"/><path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2l2-2h4l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zm0 2c3.51 0 4.96.48 5.57 1H6.43c.61-.52 2.06-1 5.57-1zM6 7h5v3H6V7zm12 8.5c0 .83-.67 1.5-1.5 1.5h-9c-.83 0-1.5-.67-1.5-1.5V12h12v3.5zm0-5.5h-5V7h5v3z"/></svg>
-              <p>
-                M3 : Havre - Caumartin<br />
-                M7 : RER A E : Auber<br />
-                M14 : Saint Lazare
-              </p>
+              <ul class="metro-list">
+                <li>
+                  <span class="badge m3">3</span>
+                  <span class="station">Havre - Caumartin</span>
+                </li>
+                <li>
+                  <span class="badge m7">7</span>
+                  <span class="badge rer-a">A</span>
+                  <span class="badge rer-e">E</span>
+                  <span class="station">Auber</span>
+                </li>
+                <li>
+                  <span class="badge m14">14</span>
+                  <span class="station">Saint Lazare</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
         <!-- Google Maps Iframe -->
         <div class="map-wrapper">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.207855472544!2d2.32447699355093!3d48.8733139974218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66f62b1d18b65%3A0xd96a962ea22b985!2s43%20Bd%20Haussmann%2C%2075009%20Paris!5e0!3m2!1sfr!2sfr!4v1776925213557!5m2!1sfr!2sfr" 
-            title="Plan de la position du cabinet Sprauer" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.2100006991027!2d2.3270958769730674!3d48.87327309965823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fd575c97cfd%3A0x45ac96a783d9bdbc!2sSprauer%20Avocats!5e0!3m2!1sen!2skr!4v1789814440651!5m2!1sen!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
       </div>
     </section>
@@ -470,4 +476,42 @@ const pageDescription = "Contactez le cabinet Sprauer Avocats à Paris. Formulai
       padding: 25px 20px;
     }
   }
+
+/* Structure de la liste */
+.metro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.metro-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+/* Style de base des pastilles rondes */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Couleurs officielles RATP */
+.badge.m3 { background-color: #9b983b; color: #ffffff; }
+.badge.m7 { background-color: #f59fb3; color: #000000; } /* Fond clair = texte noir */
+.badge.m14 { background-color: #662483; color: #ffffff; }
+.badge.rer-a { background-color: #e3051c; color: #ffffff; }
+.badge.rer-e { background-color: #de82b5; color: #ffffff; }
 </style>

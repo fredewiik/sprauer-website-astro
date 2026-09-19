@@ -103,6 +103,25 @@ const searchIndex = rawAll
   <main>
     <!-- HERO SECTION -->
     <section class="hero">
+    <svg class="hero-bg-svg" width="100%" height="100%" viewBox="0 0 296 255" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+          <g transform="matrix(1,0,0,1,-946.441,-578.98)">
+              <g>
+                  <g transform="matrix(1.22997,3.01256e-16,-3.01256e-16,1.22997,-1250.69,-655.61)">
+                      <path d="M2016.36,1203.5C2016.98,1204.9 2019.25,1208.48 2026.39,1208.48L2026.39,1210.47L2018.74,1210.47L2018.74,1210.47L1951.36,1210.47L1951.36,1207.35L1956.05,1205.79C1960.42,1204.12 1963.07,1201.78 1964.01,1198.76C1964.95,1195.74 1964.79,1192.15 1963.54,1187.99L1915.45,1039.66L1895.33,1097.94C1893.72,1096.56 1892.06,1095.17 1890.33,1093.76L1912.22,1030.95L1912.71,1029.44L1921.64,1003.76L1921.7,1003.76L1948.24,1003.76L1991.35,1130.12L2016.36,1203.5Z" style="fill:white;"></path>
+                  </g>
+                  <g transform="matrix(1.22997,3.01256e-16,-3.01256e-16,1.22997,-1250.69,-655.61)">
+                      <path d="M1853.64,1152.17C1853.57,1152.03 1853.51,1151.89 1853.44,1151.75C1850.23,1145.2 1844.17,1138.04 1835.28,1130.27L1824.8,1121.87C1810.15,1110.08 1799.42,1098.15 1792.62,1086.07C1785.81,1074 1784.53,1060.04 1788.77,1044.2C1791.83,1032.8 1797.41,1023.74 1805.53,1017.01C1813.65,1010.28 1823.57,1006.11 1835.29,1004.49C1840.35,1003.79 1845.64,1003.59 1851.15,1003.9C1839.88,1008.82 1830.87,1018.63 1827.44,1031.43C1824.55,1042.2 1826.15,1053.14 1831.1,1062.23C1834.78,1069.28 1840.88,1076.34 1849.38,1083.43L1861.16,1092.79C1877.53,1105.88 1888.55,1118.09 1894.2,1129.44C1899.86,1140.79 1900.74,1153.71 1896.86,1168.2C1892.31,1185.2 1882.17,1197.34 1866.45,1204.62C1855.98,1209.47 1843.77,1211.3 1829.81,1210.12C1842.46,1205.71 1852.77,1195.32 1856.49,1181.43C1859.22,1171.26 1857.95,1160.95 1853.64,1152.17Z" style="fill:white;"></path>
+                  </g>
+                  <g transform="matrix(1.22997,3.01256e-16,-3.01256e-16,1.22997,-1237.25,-655.426)">
+                      <path d="M1786.28,1210.34L1786.3,1187.75L1809.66,1210.32L1786.28,1210.34Z" style="fill:white;"></path>
+                  </g>
+                  <g transform="matrix(-1.22997,-4.51884e-16,4.51884e-16,-1.22997,3263.48,2067.66)">
+                      <path d="M1786.28,1210.34L1786.3,1187.75L1809.66,1210.32L1786.28,1210.34Z" style="fill:white;"></path>
+                  </g>
+              </g>
+          </g>
+      </svg>
+
       <div class="container hero-grid">
         <div class="hero-content">
           <h1><span>Let's talk</span> law</h1>
@@ -279,6 +298,7 @@ const searchIndex = rawAll
 <style>
   /* HERO SECTION */
   .hero {
+    position: relative;
     padding: 80px 0;
     background-color: var(--color-primary);
   }
@@ -313,18 +333,6 @@ const searchIndex = rawAll
     object-fit: cover;
     width: 100%;
     height: auto;
-  }
-
-  /* ARTICLES SECTION */
-  :global(.articles-section) {
-    padding: 70px 0;
-    background-color: #ffffff;
-  }
-
-  :global(.articles-grid) {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
   }
 
   /* SEARCH BAR STYLES */
@@ -429,6 +437,18 @@ const searchIndex = rawAll
     height: 18px;
   }
 }
+
+  /* ARTICLES SECTION */
+  :global(.articles-section) {
+    padding: 70px 0;
+    background-color: #ffffff;
+  }
+
+  :global(.articles-grid) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
 
   /* CARTE ARTICLE */
   :global(.article-card) {
@@ -576,10 +596,6 @@ const searchIndex = rawAll
   @media (max-width: 575px) {
     .hero {
       padding: 50px 0;
-    }
-
-    :global(.articles-grid) {
-      grid-template-columns: 1fr;
     }
 
     :global(.article-card) {

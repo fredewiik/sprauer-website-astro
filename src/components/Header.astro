@@ -87,51 +87,55 @@ const navItems = isEn
 ---
 
 <header class="header">
-  <div class="container header-container">
-    <!-- Logo -->
-    <a href={isEn ? `${baseUrl}en/` : baseUrl} class="logo-link">
-      <img 
-        src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp" 
-        alt="Sprauer Avocats Logo" 
-        width="180" 
-        height="50"
-      />
-    </a>
+  <div class="color-container">
+    <div class="container header-container">
+      <!-- Logo -->
+      <a href={isEn ? `${baseUrl}en/` : baseUrl} class="logo-link">
+        <img 
+          src="https://front.sprauer.fr/wp-content/uploads/2025/08/logo-h-blanc.webp" 
+          alt="Sprauer Avocats Logo" 
+          width="180" 
+          height="50"
+        />
+      </a>
 
-    <!-- Bouton Burger (Mobile) -->
-    <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+      <!-- Bouton Burger (Mobile) -->
+      <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
 
-    <!-- Navigation -->
-    <nav class="nav" id="nav-menu">
-      <ul class="nav-list">
-        {navItems.map((item) => {
-          const fullHref = `${baseUrl}${item.path}`;
-          const isActive = item.path === '' || item.path === 'en/'
-            ? (pathname === fullHref || pathname === `${fullHref}index.html`)
-            : pathname.startsWith(fullHref);
+      <!-- Navigation -->
+      <nav class="nav" id="nav-menu">
+        <ul class="nav-list">
+          {navItems.map((item) => {
+            const fullHref = `${baseUrl}${item.path}`;
+            const isActive = item.path === '' || item.path === 'en/'
+              ? (pathname === fullHref || pathname === `${fullHref}index.html`)
+              : pathname.startsWith(fullHref);
 
-          return (
-            <li>
-              <a href={fullHref} class={isActive ? 'active' : ''}>
-                {item.name}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li>
+                <a href={fullHref} class={isActive ? 'active' : ''}>
+                  {item.name}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
 
-      <!-- Sélecteur de langue -->
-      <div class="lang-switcher">
-        <a href={frPath} class={!isEn ? 'lang-active' : ''}>FR</a>
-        <span class="lang-separator">|</span>
-        <a href={enPath} class={isEn ? 'lang-active' : ''}>EN</a>
-      </div>
-    </nav>
+        <!-- Sélecteur de langue -->
+        <div class="lang-switcher">
+          <a href={frPath} class={!isEn ? 'lang-active' : ''}>FR</a>
+          <span class="lang-separator">|</span>
+          <a href={enPath} class={isEn ? 'lang-active' : ''}>EN</a>
+        </div>
+      </nav>
+    </div>
   </div>
+
+  <div class="header-edge"></div>
 </header>
 
 <script>
@@ -150,17 +154,42 @@ const navItems = isEn
     top: 0;
     z-index: 1000;
     background-color: var(--color-primary);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     height: 80px;
     display: flex;
     align-items: center;
   }
 
+  .header-edge {
+    position: absolute;
+    height: 101%;
+    width: 100%;
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, #ffffff 50%, rgba(0, 0, 0, 0) 100%);
+    margin: 0px;
+    inset: 0% auto auto auto;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .header-edge {
+      visibility: hidden;
+    }
+  }
+
+  .color-container {
+    background-color: var(--color-primary);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
   .header-container {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 100%;
   }
 
   .logo-link img {
@@ -246,38 +275,53 @@ const navItems = isEn
   }
 
   @media (max-width: 991px) {
-    .menu-toggle {
-      display: flex;
-    }
-
-    .nav {
-      position: absolute;
-      top: 80px;
-      left: 0;
-      width: 100%;
-      background-color: var(--color-primary-dark);
-      padding: 24px 0;
-      display: none;
-      flex-direction: column;
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav.is-open {
-      display: flex;
-    }
-
-    .nav-list {
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .lang-switcher {
-      border-left: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-left: 0;
-      padding-top: 16px;
-      margin-top: 10px;
-    }
+  /* Fixer le header en bas de l'écran */
+  .header {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Faire ouvrir le menu déroulant vers le HAUT */
+  .nav {
+    position: absolute;
+    top: auto;
+    bottom: 100%; /* S'affiche juste au-dessus du header */
+    left: 0;
+    width: 100%;
+    max-height: calc(100vh - 80px); /* Empêche le menu de dépasser de l'écran */
+    overflow-y: auto; /* Permet le défilement interne si l'écran est petit */
+    background-color: var(--color-primary-dark);
+    padding: 24px 0;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 -10px 15px rgba(0, 0, 0, 0.3); /* Ombre projetée vers le haut */
+  }
+
+  .nav.is-open {
+    display: flex;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lang-switcher {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 0;
+    padding-top: 16px;
+    margin-top: 10px;
+  }
+}
 </style>
