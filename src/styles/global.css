@@ -49,6 +49,7 @@ img {
   min-width: 0px;
   min-height: 0px;
   inset: -1% auto auto 0%;
+  pointer-events: none;
 }
 
 @media (max-width: 575px) {
