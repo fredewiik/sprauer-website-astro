@@ -20,7 +20,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
             <h1 class="hero-title">Toutes nos <strong class="hero-title-accent">expertises</strong></h1>
             <div class="hero-text-wrapper">
               <p class="hero-text">
-                Spécialisé en droit pénal, droit pénal des affaires et droit des affaires, le cabinet met son expertise au service de vos enjeux juridiques les plus sensibles.
+                Spécialisé droit des affaires, droit pénal des affaires et en droit pénal, le cabinet met son expertise au service de vos enjeux juridiques les plus sensibles.
                 <br /><br />
                 Nous vous accompagnons avec rigueur, confidentialité et efficacité dans chaque domaine d’intervention présenté ici.
               </p>
@@ -149,9 +149,9 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
             </div>
           </div>
           <div class="card card-affaires-p-2">
-            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tom-pursey-3025008-4693103.webp" alt="Pratiques commerciale trompeuse" loading="lazy" />
+            <img class="card-img" src="https://front.sprauer.fr/wp-content/uploads/2025/08/pexels-tom-pursey-3025008-4693103.webp" alt="Pratiques commerciales trompeuses" loading="lazy" />
             <div class="card-content text-primary">
-              <h3 class="card-title">Pratiques commerciale trompeuse</h3>
+              <h3 class="card-title">Pratiques commerciales trompeuses</h3>
               <a class="card-btn" href={`${baseUrl}competences/pratiques-commerciales-trompeuses/`}><span>En savoir plus</span></a>
             </div>
           </div>
@@ -334,7 +334,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   .hero-text-wrapper { margin-top: 20px; }
   .hero-text { font-size: 18px; line-height: 1.5em; color: #fff; font-family: var(--font-main); }
   .hero-img-container { overflow: hidden; border-radius: 8px; width: 100%; }
-  .hero-img { max-width: 100%; height: auto; display: block; }
+  .hero-img { max-width: 100%; height: auto; display: block; position: relative; z-index: 1; }
 
   /* Base Sections */
   #section-droit-penal h2 { color: black; }

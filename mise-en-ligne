@@ -75,3 +75,7 @@ ErrorDocument 404 /404.html
 * **Certificat SSL** : Allez dans cPanel > *Let's Encrypt SSL* et vérifiez que le certificat couvre bien `sprauer.fr` et `front.sprauer.fr`.
 * **Redirections & Liens** : Testez la navigation entre le français et l'anglais, ainsi que les formulaires de contact.
 * **Prochains articles** : Lorsque vous publierez un nouvel article sur `front.sprauer.fr`, il suffira de relancer `npm run build` et de renvoyer le dossier `dist/` sur le serveur (ou d'automatiser ce process via un Webhook / GitHub Actions si vous le souhaitez ultérieurement).
+
+
+
+### 6. Retirer les filtre pour l'indexation
